@@ -1,12 +1,18 @@
 <template>
     <div class="user-dropdown">
-        <div class="user-buttom">
-            <span class="d-none d-sm-block">{{ user.name }}</span>
-            <div class="user-dropdown-img">
-                <b-icon style="width:40px; height:40px; margin:0 8px 0 12px;" icon="person-bounding-box"></b-icon>
-            </div>
-            <b-icon icon="chevron-down"></b-icon>
-        </div>
+        <b-button-toolbar aria-label="Toolbar with button groups and dropdown menu">
+            <b-dropdown class="drop mx-1" right :text="user.name" variant="outline-success">
+                <!-- <div class="user-dropdown-img">
+                    <b-avatar class="ml-2 mr-1" variant="primary" size="40px" alt="User"></b-avatar>
+                </div> -->
+                <b-dropdown-item variant="success">
+                    <a><b-icon class="mr-2" icon="person-lines-fill"></b-icon>Configurações</a>
+                </b-dropdown-item>
+                <b-dropdown-item variant="success">
+                    <a><b-icon class="mr-2" icon="box-arrow-left"></b-icon>Sair</a>
+                </b-dropdown-item>
+            </b-dropdown>
+        </b-button-toolbar>
     </div>
 </template>
 
@@ -15,14 +21,12 @@ import { mapState } from "vuex";
 
 export default {
     name: "UserDropdown",
-    computed: mapState(["user"])
+    computed: {
+        ...mapState(["user"])
+    }
 };
 </script>
 
 <style>
-.user-buttom {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 </style>

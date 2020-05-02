@@ -1,12 +1,12 @@
 <template>
     <div id="app">
-        <div class="wave">
+        <!-- <div class="wave">
             <svg viewBox="0 0 500 150" preserveAspectRatio="none">
                 <path
                     d="M-10.44,152.45 C172.40,50.81 316.87,206.73 502.54,116.94 L500.00,0.00 L0.00,0.00 Z"
                 />
             </svg>
-        </div>
+        </div> -->
         <Header />
         <Content />
         <Footer />
@@ -36,8 +36,8 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    /* background-color: #e5f9ff; */
     background-color: rgb(219, 246, 255);
+    /* background-color: #eeeeee; */
 
     color: #333;
     height: 100vh;
@@ -62,6 +62,6 @@ body {
 }
 .wave path {
     /* stroke: #1a6eff4f; */
-    fill: rgba(0, 122, 230, 0.2);
+    fill: rgba(194, 238, 253, 0.8);
 }
 </style>
