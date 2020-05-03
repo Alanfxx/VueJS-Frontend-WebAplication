@@ -1,12 +1,5 @@
 <template>
     <div id="app">
-        <!-- <div class="wave">
-            <svg viewBox="0 0 500 150" preserveAspectRatio="none">
-                <path
-                    d="M-10.44,152.45 C172.40,50.81 316.87,206.73 502.54,116.94 L500.00,0.00 L0.00,0.00 Z"
-                />
-            </svg>
-        </div> -->
         <Header />
         <Content />
         <Footer />
@@ -14,9 +7,9 @@
 </template>
 
 <script>
-import Header from "./components/template/Header";
-import Content from "./components/template/Content";
-import Footer from "./components/template/Footer";
+import Header from "./components/header/Header";
+import Content from "./components/content/Content";
+import Footer from "./components/footer/Footer";
 
 export default {
     name: "App",
@@ -36,32 +29,12 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    background-color: rgb(219, 246, 255);
-    /* background-color: #eeeeee; */
-
-    color: #333;
+    /* background-color: rgb(219, 246, 255); */
+    color: #111;
     height: 100vh;
     display: grid;
     grid-template: "header" "content" "footer";
-    grid-template-rows: 80px 1fr 18px;
+    grid-template-rows: 60px 1fr 18px;
     grid-template-columns: 1fr;
-}
-.wave {
-    position: fixed;
-    width: 100%;
-    height: 30%;
-    top: 0px;
-}
-.wave svg {
-    height: 100%;
-    width: 100%;
-}
-.wave path {
-    height: 20%;
-    width: 100%;
-}
-.wave path {
-    /* stroke: #1a6eff4f; */
-    fill: rgba(194, 238, 253, 0.8);
 }
 </style>

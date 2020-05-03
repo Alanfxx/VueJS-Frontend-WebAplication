@@ -6,17 +6,19 @@
 </template>
 
 <script>
-import PageTitle from '@/components/template/PageTitle.vue'
+import PageTitle from '../PageTitle.vue'
 
 export default {
     name: 'clientes-pages',
     components: { PageTitle }
-
 }
 </script>
 
 <style>
 .clientes-pages {
-    width: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 </style>

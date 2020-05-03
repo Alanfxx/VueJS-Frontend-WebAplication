@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import PageTitle from "@/components/template/PageTitle.vue";
+import PageTitle from "../PageTitle.vue";
 
 export default {
     name: "inventario-pages",
@@ -16,6 +16,9 @@ export default {
 
 <style>
 .inventario-pages {
-    width: 90%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 </style>

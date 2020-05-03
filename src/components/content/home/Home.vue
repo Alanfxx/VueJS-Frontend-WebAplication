@@ -10,7 +10,9 @@ export default {
 
 <style>
 .logo-home {
-    width: 600px;
+    width: 500px;
+    height: 500px;
     opacity: .1;
+    user-select: none;
 }
 </style>

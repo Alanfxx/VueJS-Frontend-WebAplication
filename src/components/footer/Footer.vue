@@ -11,11 +11,14 @@ export default {};
 <style>
 .app-footer {
     grid-area: 'footer';
-    box-shadow: 0 0 5px 0 rgba(26, 110, 255, 0.533);
+    border-top: 1px solid rgba(0, 110, 0, 0.5);
     font-size: 0.6rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     z-index: 2;
+}
+.app-footer span {
+    margin-right: 15px;
 }
 </style>

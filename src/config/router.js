@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 import InventarioPages from '@/components/content/inventario/InventarioPages'
 import UsuarioPages from '@/components/content/clientes/ClientePages'
 import Aparelhos from '@/components/content/aparelhos/AparelhoPages'
-import Home from '@/components/content/Home'
+import Home from '@/components/content/home/Home'
 
 Vue.use(VueRouter)
 
