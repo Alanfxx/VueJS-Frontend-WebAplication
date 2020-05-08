@@ -10,7 +10,7 @@ export default {};
 
 <style>
 .app-footer {
-    grid-area: 'footer';
+    grid-area: footer;
     border-top: 1px solid rgba(0, 110, 0, 0.5);
     font-size: 0.6rem;
     display: flex;

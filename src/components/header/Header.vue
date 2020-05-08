@@ -4,33 +4,33 @@
             <img class="logo" src="@/assets/logo.svg" />
         </router-link>
         <Navbar />
-        <UserDropdown class="user-dropdown" />
     </div>
 </template>
 
 <script>
 import Navbar from "./Navbar";
-import UserDropdown from "./UserDropdown";
 
 export default {
-    components: { UserDropdown, Navbar }
+    components: { Navbar }
 };
 </script>
 
 <style>
 .app-header {
-    grid-area: 'header';
+    grid-area: header;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 3px solid transparent;
+    /* background-color: #28a745; */
+    background-color: #343a40;
+    border-bottom: 2.5px solid transparent;
     border-image: linear-gradient(to right, limegreen 0%, rgb(0, 97, 0) 100%);
     border-image-slice: 1;
     z-index: 5;
 }
 .logo {
-    height: 50px;
-    margin-left: 20px;
+    height: 40px;
+    margin: 0 40px 0 40px;
     user-select: none;
 }
 .user-dropdown {

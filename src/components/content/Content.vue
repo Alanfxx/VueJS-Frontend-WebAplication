@@ -10,9 +10,10 @@ export default {};
 
 <style>
 .app-content {
-    grid-area: 'content';
+    grid-area: content;
     display: flex;
     justify-content: center;
+    /* align-items: center; */
     z-index: 2;
 }
 </style>
