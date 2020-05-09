@@ -17,4 +17,7 @@ export default {
         justify-content: center;
         align-items: center;
     }
+    .loading img {
+        width: 80px;
+    }
 </style>

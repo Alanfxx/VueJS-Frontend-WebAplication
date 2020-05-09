@@ -26,10 +26,10 @@
                             <b-avatar class="ml-2 mr-1" variant="light" size="1.6em" alt="User"></b-avatar>
                         </template>
                         <b-dropdown-item variant="none">
-                            <a><b-icon class="mr-2" icon="person-lines-fill"></b-icon>Configurações</a>
+                            <a><b-icon class="mr-2" icon="person-lines-fill"></b-icon> Configurações</a>
                         </b-dropdown-item>
-                        <b-dropdown-item variant="none">
-                            <a @click.prevent="logout"><b-icon class="mr-2" icon="box-arrow-left"></b-icon>Sair</a>
+                        <b-dropdown-item @click="logout" variant="none">
+                            <a><b-icon class="mr-2" icon="box-arrow-left"></b-icon> Sair</a>
                         </b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>

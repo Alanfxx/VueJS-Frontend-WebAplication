@@ -52,12 +52,16 @@ export default {
             this.validatingToken = false
         }
     },
+    computed: {
+        ...mapState(["isMenuVisible"])
+    },
     created() {
         this.validateToken()
     },
-    computed: {
-        ...mapState(["isMenuVisible"])
-    }
+    // beforeDestroy() { //apenas teste
+    //     localStorage.removeItem(userKey)
+    //     this.$store.commit('setUser', null)
+    // }
 };
 </script>
 
