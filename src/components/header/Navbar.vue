@@ -14,10 +14,10 @@
 
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
-                    <b-nav-form class='mr-5' is-nav>
+                    <!-- <b-nav-form class='mr-5' is-nav>
                         <b-form-input size="sm" class="mr-sm-2" placeholder="Buscar"></b-form-input>
                         <b-button size="sm" class="my-2 my-sm-0" type="submit">Buscar</b-button>
-                    </b-nav-form>
+                    </b-nav-form> -->
 
                     <b-nav-item-dropdown right>
                         <!-- Using 'button-content' slot -->

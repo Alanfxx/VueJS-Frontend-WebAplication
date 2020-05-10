@@ -1,6 +1,6 @@
 <template>
     <div id="app" :class="{other: !isMenuVisible}">
-        <Header v-if="isMenuVisible"/>
+        <Header v-if="isMenuVisible" />
         <Loading v-if="validatingToken" />
         <Content v-else />
         <Footer />
@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import Header from "./components/header/Header";
-import Content from "./components/content/Content";
-import Footer from "./components/footer/Footer";
-import Loading from './components/Loading'
-import axios from 'axios'
-import {baseApiUrl, userKey} from '@/global'
+import Header from "./components/header/Header"
+import Content from "./components/content/Content"
+import Footer from "./components/footer/Footer"
+import Loading from "./components/Loading"
+import axios from "axios"
+import { baseApiUrl, userKey } from "@/global"
 
 import { mapState } from "vuex"
 
@@ -22,7 +22,7 @@ export default {
     components: { Header, Content, Footer, Loading },
     data: function() {
         return {
-            validatingToken: true
+            validatingToken: false
         }
     },
     methods: {
@@ -31,25 +31,29 @@ export default {
 
             const json = localStorage.getItem(userKey)
             const userData = JSON.parse(json)
-            this.$store.commit('setUser', null)
+            this.$store.commit("setUser", null)
 
-            if(!userData) {
-                console.log('entrou ' + userData )
-                this.validatingToken = false
-                return this.$router.push({name: 'auth'})
+            if (!userData) {
+                this.validatingToken = false;
+                if(this.$router.currentRoute.name !== 'auth')
+                    this.$router.push({ name: "auth" })
+                return
             }
 
-            const res = await axios.post(`${baseApiUrl}/validateToken`, userData)
+            const res = await axios.post(
+                `${baseApiUrl}/validateToken`,
+                userData
+            );
 
-            if(res.data) {
-                this.$store.commit('setUser', userData)
+            if (res.data) {
+                this.$store.commit("setUser", userData)
             } else {
-                console.log('Entrou.... remove' + res.data)
                 localStorage.removeItem(userKey)
-                this.$router.push({name: 'auth'})
+                if(this.$router.currentRoute.name !== 'auth')
+                    this.$router.push({ name: "auth" })
             }
 
-            this.validatingToken = false
+            this.validatingToken = false;
         }
     },
     computed: {
@@ -57,12 +61,8 @@ export default {
     },
     created() {
         this.validateToken()
-    },
-    // beforeDestroy() { //apenas teste
-    //     localStorage.removeItem(userKey)
-    //     this.$store.commit('setUser', null)
-    // }
-};
+    }
+}
 </script>
 
 <style>
