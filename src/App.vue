@@ -81,12 +81,12 @@ body {
     color: #111;
     height: 100vh;
     display: grid;
-    grid-template: "header" "content" "footer";
+    grid-template-areas: "header" "content" "footer";
     grid-template-rows: 60px 1fr 18px;
     grid-template-columns: 1fr;
 }
 #app.other {
-    grid-template: "content" "footer";
+    grid-template-areas: "content" "footer";
     grid-template-rows: 1fr 18px;
     grid-template-columns: 1fr;
 }

@@ -3,10 +3,26 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Vue from 'vue'
 
 // import BootstrapVue from 'bootstrap-vue'
-import { BootstrapVue, BootstrapVueIcons, AvatarPlugin,  ToastPlugin, TooltipPlugin } from 'bootstrap-vue'
+// Vue.use(BootstrapVue)
 
-Vue.use(BootstrapVue)
+import { 
+    ButtonPlugin,
+    FormInputPlugin, 
+    FormPlugin, 
+    BootstrapVueIcons, 
+    AvatarPlugin,  
+    ToastPlugin, 
+    // TooltipPlugin,
+    SpinnerPlugin,
+    NavbarPlugin 
+} from 'bootstrap-vue'
+
+Vue.use(ButtonPlugin)
+Vue.use(FormInputPlugin)
+Vue.use(FormPlugin)
 Vue.use(BootstrapVueIcons)
 Vue.use(AvatarPlugin)
 Vue.use(ToastPlugin)
-Vue.use(TooltipPlugin)
+// Vue.use(TooltipPlugin)
+Vue.use(SpinnerPlugin)
+Vue.use(NavbarPlugin )
