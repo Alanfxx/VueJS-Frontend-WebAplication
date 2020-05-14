@@ -1,7 +1,7 @@
 <template>
     <div class="aparelhos-pages">
         <PageTitle  icon="display-fill" main="Aparelhos" 
-            sub="Subtítulo da página Aparelhos"/>
+            sub="Controle de Aparelhos"/>
     </div>
 </template>
 

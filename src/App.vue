@@ -1,6 +1,6 @@
 <template>
-    <div id="app" :class="{other: !isMenuVisible}">
-        <Header v-if="isMenuVisible" />
+    <div id="app" :class="{other: !isMenuVisible.status}">
+        <Header v-if="isMenuVisible.status" />
         <Loading v-if="validatingToken" />
         <Content v-else />
         <Footer />
@@ -12,17 +12,18 @@ import Header from "./components/header/Header"
 import Content from "./components/content/Content"
 import Footer from "./components/footer/Footer"
 import Loading from "./components/Loading"
-import axios from "axios"
-import { baseApiUrl, userKey } from "@/global"
-
-import { mapState } from "vuex"
+import axios from "axios"//
+import { 
+baseApiUrl, //
+userKey } from "@/global"
 
 export default {
     name: "App",
     components: { Header, Content, Footer, Loading },
     data: function() {
         return {
-            validatingToken: false
+            validatingToken: false,
+            isMenuVisible: this.$store.state.global.isMenuVisible
         }
     },
     methods: {
@@ -31,7 +32,8 @@ export default {
 
             const json = localStorage.getItem(userKey)
             const userData = JSON.parse(json)
-            this.$store.commit("setUser", null)
+            this.$store.dispatch('adicionarUser', null)
+            this.$store.commit("setUser", null)//
 
             if (!userData) {
                 this.validatingToken = false;
@@ -40,24 +42,22 @@ export default {
                 return
             }
 
-            const res = await axios.post(
+            const res = await axios.post(//>
                 `${baseApiUrl}/validateToken`,
                 userData
             );
 
-            if (res.data) {
-                this.$store.commit("setUser", userData)
+            if (res.data) {//^
+                this.$store.dispatch('adicionarUser', userData)
+                this.$store.commit("setUser", userData)//>
             } else {
                 localStorage.removeItem(userKey)
                 if(this.$router.currentRoute.name !== 'auth')
                     this.$router.push({ name: "auth" })
-            }
+            }//^
 
             this.validatingToken = false;
         }
-    },
-    computed: {
-        ...mapState(["isMenuVisible"])
     },
     created() {
         this.validateToken()

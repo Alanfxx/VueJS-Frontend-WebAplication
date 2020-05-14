@@ -1,7 +1,7 @@
 <template>
   <div class="clientes-pages">
       <PageTitle  icon="people-fill" main="Clientes" 
-            sub="Subtítulo da página Clientes"/>
+            sub="Controle de Clientes"/>
   </div>
 </template>
 

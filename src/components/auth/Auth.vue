@@ -88,10 +88,11 @@ export default {
                     this.authToast("Autorizado", 'success') //trocar isso pra tooltip ou popup
                     this.showLoading = false
                     setTimeout(() => {
-                        this.$store.commit("setUser", res.data);
+                        this.$store.dispatch('adicionarUser', res.data)
+                        // this.$store.commit("setUser", res.data);
                         localStorage.setItem(userKey, JSON.stringify(res.data));
                         this.$router.push({ path: "/" });
-                    }, 2000)
+                    }, 1000)
                 })
                 .catch(e => {
                     this.authToast(e.response ? e.response.data : 'Você ta sem internet', 'primary')

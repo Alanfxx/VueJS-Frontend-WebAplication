@@ -5,7 +5,7 @@
                 <h1><b-icon class="mr-1" :icon="icon"></b-icon> {{ main }}</h1>
                 <h2>{{ sub }}</h2>
             </div>
-            <b-button class="px-4" size='sm' pill variant="outline-success">Novo</b-button>
+            <b-button class="px-4" size='sm' pill variant="outline-success" @click="alterarNovo"> Novo </b-button>
         </div>
     </div>
 </template>
@@ -13,7 +13,17 @@
 <script>
 export default {
     name: 'PageTitle',
-    props: ['icon', 'main', 'sub']
+    props: ['icon', 'main', 'sub'],
+    data: function () {
+        return {
+            novo: this.$store.state.global.novoButton
+        }
+    },
+    methods: {
+        alterarNovo() {
+            this.novo.status = true
+        }
+    }
 }
 </script>
 

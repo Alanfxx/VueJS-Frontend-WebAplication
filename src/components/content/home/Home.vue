@@ -10,7 +10,7 @@ import Clock from "./Clock";
 
 export default {
     components: { Clock }
-};
+}
 </script>
 
 <style>
