@@ -19,7 +19,7 @@ export default {
 
 <style>
 .conteiner-detalhes {
-    width: 100%;
+    width: 60%;
     display: flex;
     margin-left: 6px;
     transition: .5s ease;

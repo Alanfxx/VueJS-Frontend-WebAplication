@@ -1,6 +1,6 @@
 <template>
-    <div class="dropdown-container" @focusout="visible = false" tabindex="0">
         <!-- @focus="handleFocus" -->
+    <div class="dropdown-container" @focusout="visible = false" tabindex="0">
         <div class="dropdown-bt" @click="visible = !visible"> 
             {{user.name}}
             <b-avatar class="ml-2 mr-2" variant="light" size="1.6em" alt="User"></b-avatar>
@@ -66,7 +66,7 @@ export default {
 }
 .dropdown-body {
     width: 180px;
-    background-color: #eee;
+    background-color: #fff;
     position: absolute;
     bottom: -170%;
     left: -15%;

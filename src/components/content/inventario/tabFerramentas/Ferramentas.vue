@@ -7,28 +7,21 @@
                     <b-form-group label='Nome:' label-for='ferramenta-name' label-align="left">
                         <b-form-input id="ferramenta-name" type="text"
                         v-model="ferramenta.name" required
-                        placeholder="Informe o Nome da Peça.." />
-                    </b-form-group>
-                </b-col>
-                <b-col md='3' sm='12'>
-                    <b-form-group label='Referencia:' label-for='ferramenta-ref' label-align="left">
-                        <b-form-input id="ferramenta-ref" type="text"
-                        v-model="ferramenta.ref" required
-                        placeholder="Informe a Referência da Peça.." />
+                        placeholder="Informe o nome.." />
                     </b-form-group>
                 </b-col>
                 <b-col md='3' sm='12'>
                     <b-form-group label='Quantidade:' label-for='ferramenta-quant' label-align="left">
                         <b-form-input id="ferramenta-quant" type="number"
                         v-model="ferramenta.quant" required
-                        placeholder="Informe a Quantidade da Peça.." />
+                        placeholder="Informe a quantidade.." />
                     </b-form-group>
                 </b-col>
                 
                 <b-col md='3' sm='12' >
                     <b-form-group align-v="end">
                         <b-button variant="success" @click="save">Salvar</b-button>
-                        <b-button variant="danger" @click="cancelar" class="ml-2">Cancelar</b-button>
+                        <b-button @click="cancelar" class="ml-2">Cancelar</b-button>
                     </b-form-group>
                 </b-col>
             </b-row>
@@ -37,7 +30,8 @@
         <div class="conteudo-ferramentas">
             <div class="tabela-ferramentas">
                 <div class="header-tabela">
-                    <span><strong>Nome</strong></span><span><strong>Quantidade</strong></span>
+                    <span><strong>Nome</strong></span>
+                    <!-- <span><strong>Quantidade</strong></span> -->
                 </div>
                 <div class="ferramentas-group" v-for="(item, i) in ferramentas" :key="i">
                     <ferramentaItemTable :ferramenta="item" :index="i" @clicou="ferramentaSelected(item)"/>

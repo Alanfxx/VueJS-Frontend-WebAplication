@@ -1,7 +1,7 @@
 <template>
     <div class="peca-item-table" @click="$emit('clicou')" :class="{'peca-color': index%2==0}">
         <div class="name">{{peca.name}}</div>
-        <div class="quant">{{peca.quant}}</div>
+        <div class="quant">{{peca.ref}}</div>
     </div>
 </template>
 

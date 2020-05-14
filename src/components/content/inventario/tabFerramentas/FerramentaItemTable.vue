@@ -1,7 +1,7 @@
 <template>
     <div class="ferramenta-item-table" @click="$emit('clicou')" :class="{'ferramenta-color': index%2==0}">
         <div class="name">{{ferramenta.name}}</div>
-        <div class="quant">{{ferramenta.quant}}</div>
+        <!-- <div class="quant">{{ferramenta.quant}}</div> -->
     </div>
 </template>
 

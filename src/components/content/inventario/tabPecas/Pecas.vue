@@ -7,28 +7,28 @@
                     <b-form-group label='Nome:' label-for='peca-name' label-align="left">
                         <b-form-input id="peca-name" type="text"
                         v-model="peca.name" required
-                        placeholder="Informe o Nome da Peça.." />
+                        placeholder="Informe o nome.." />
                     </b-form-group>
                 </b-col>
                 <b-col md='3' sm='12'>
                     <b-form-group label='Referencia:' label-for='peca-ref' label-align="left">
                         <b-form-input id="peca-ref" type="text"
                         v-model="peca.ref" required
-                        placeholder="Informe a Referência da Peça.." />
+                        placeholder="Informe a referência.." />
                     </b-form-group>
                 </b-col>
                 <b-col md='3' sm='12'>
                     <b-form-group label='Quantidade:' label-for='peca-quant' label-align="left">
                         <b-form-input id="peca-quant" type="number"
                         v-model="peca.quant" required
-                        placeholder="Informe a Quantidade da Peça.." />
+                        placeholder="Informe a quantidade.." />
                     </b-form-group>
                 </b-col>
                 
                 <b-col md='3' sm='12' >
                     <b-form-group align-v="end">
                         <b-button variant="success" @click="save">Salvar</b-button>
-                        <b-button variant="danger" @click="cancelar" class="ml-2">Cancelar</b-button>
+                        <b-button @click="cancelar" class="ml-2">Cancelar</b-button>
                     </b-form-group>
                 </b-col>
             </b-row>
@@ -37,7 +37,7 @@
         <div class="conteudo-pecas">
             <div class="tabela-pecas">
                 <div class="header-tabela">
-                    <span><strong>Nome</strong></span><span><strong>Quantidade</strong></span>
+                    <span><strong>Nome</strong></span><span><strong>Referência</strong></span>
                 </div>
                 <div class="pecas-group" v-for="(item, i) in pecas" :key="i">
                     <PecaItemTable :peca="item" :index="i" @clicou="pecaSelected(item)"/>
