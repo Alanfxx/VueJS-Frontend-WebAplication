@@ -28,16 +28,12 @@
         </b-form>
         <!-- =============== -->
         <div class="conteudo-ferramentas">
-            <div class="tabela-ferramentas">
-                <div class="header-tabela">
-                    <span><strong>Nome</strong></span>
-                    <!-- <span><strong>Quantidade</strong></span> -->
-                </div>
-                <div class="ferramentas-group" v-for="(item, i) in ferramentas" :key="i">
-                    <ferramentaItemTable :ferramenta="item" :index="i" @clicou="ferramentaSelected(item)"/>
-                </div>
-            </div>
-            <!-- //detalhe aqui -->
+            <!-- Tabela dos itens -->
+            <FerramentaTable>
+                <FerramentaItemTable v-for="(item, i) in ferramentas" :key="i"
+                    :ferramenta="item" :index="i" @clicou="ferramentaSelected(item)"/>
+            </FerramentaTable>
+            <!-- //Detalhe do item selecionado -->
             <ConteinerDetalhes :mostrarDetalhes="mostrarDetalhes">
                 <ItemDetalhes :item='ferramenta' @editar="save" @remove="remove"/>
             </ConteinerDetalhes>
@@ -47,6 +43,7 @@
 </template>
 
 <script>
+import FerramentaTable from './FerramentaTable'
 import FerramentaItemTable from './FerramentaItemTable'
 import ConteinerDetalhes from '../ConteinerDetalhes'
 import ItemDetalhes from '../ItemDetalhes'
@@ -54,7 +51,7 @@ import ItemDetalhes from '../ItemDetalhes'
 
 export default {
     name: 'TapFerramentas',
-    components: { FerramentaItemTable, ConteinerDetalhes, ItemDetalhes },
+    components: { FerramentaTable, FerramentaItemTable, ConteinerDetalhes, ItemDetalhes },
     computed: {
         ferramentas() {
             return this.$store.getters.ferramentasList

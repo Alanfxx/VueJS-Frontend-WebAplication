@@ -5,7 +5,8 @@
                 <h1><b-icon class="mr-1" :icon="icon"></b-icon> {{ main }}</h1>
                 <h2>{{ sub }}</h2>
             </div>
-            <b-button class="px-4" size='sm' pill variant="outline-success" @click="alterarNovo"> Novo </b-button>
+            <b-button class="px-4" size='sm' pill variant="outline-success" 
+                @click="alterarNovo"> Novo </b-button>
         </div>
     </div>
 </template>

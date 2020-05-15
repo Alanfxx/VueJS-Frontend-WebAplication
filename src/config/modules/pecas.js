@@ -8,6 +8,27 @@ export default {
     mutations: {
         setPecas(state, pecas) {
             state.pecas = pecas
+        },
+
+        //{key: '?', order: 'cresc' || 'decr'}
+        pecasSortBy(state, {key, order}) {
+            if(!order || order === 'cresc') {
+                if(isNaN(state.pecas[Object.keys(state.pecas)[0]][key])) {
+                    state.pecas.sort((a, b) => a[key].toUpperCase() > b[key].toUpperCase() ? 1 
+                        : b[key].toUpperCase() > a[key].toUpperCase() ? -1 : 0)
+                } else {
+                    state.pecas.sort((a, b) => a[key] > b[key] ? 1 
+                        : b[key] > a[key] ? -1 : 0)
+                }
+            } else {
+                if(isNaN(state.pecas[key])) {
+                    state.pecas.sort((a, b) => a[key].toUpperCase() < b[key].toUpperCase() ? 1 
+                        : b[key].toUpperCase() < a[key].toUpperCase() ? -1 : 0)
+                } else {
+                    state.pecas.sort((a, b) => a[key] < b[key] ? 1 
+                        : b[key] < a[key] ? -1 : 0)
+                }
+            }
         }
     },
     actions: {

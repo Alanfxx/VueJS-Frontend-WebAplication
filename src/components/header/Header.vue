@@ -1,7 +1,9 @@
 <template>
     <div class="app-header">
         <router-link to="/">
-            <img class="logo" src="@/assets/logo.svg" />
+            <div class="logo-container">
+                <img class="logo" src="@/assets/logo.svg" />
+            </div>
         </router-link>
         <Navbar />
     </div>
@@ -31,12 +33,19 @@ export default {
     border-bottom: 2px solid limegreen;
     z-index: 5;
 }
+.logo-container{
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .logo {
     height: 40px;
-    margin: 0 70px;
     user-select: none;
+    transition: .2s ease;
 }
-.user-dropdown {
-    margin-right: 20px;
+.logo:hover {
+    height: 48px;
+    transition: .1s ease;
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
-    <div class="tap-pecas">
+    <div class="tab-pecas">
+        <!-- Formulario de inserção de novo item (bootstrap) -->
         <b-form v-show="novoButton.status">
             <input id="peca-id" type="hidden" v-model="peca.id">
             <b-row align-v="end">
@@ -33,17 +34,13 @@
                 </b-col>
             </b-row>
         </b-form>
-        <!-- =============== -->
         <div class="conteudo-pecas">
-            <div class="tabela-pecas">
-                <div class="header-tabela">
-                    <span><strong>Nome</strong></span><span><strong>Referência</strong></span>
-                </div>
-                <div class="pecas-group" v-for="(item, i) in pecas" :key="i">
-                    <PecaItemTable :peca="item" :index="i" @clicou="pecaSelected(item)"/>
-                </div>
-            </div>
-            <!-- //detalhe aqui -->
+            <!-- Tabela dos itens -->
+            <PecaTable>
+                <PecaItemTable v-for="(item, i) in pecas" :key="i"
+                    :peca="item" :index="i" @clicou="pecaSelected(item)"/>
+            </PecaTable>
+            <!-- //Detalhe do item selecionado -->
             <ConteinerDetalhes :mostrarDetalhes="mostrarDetalhes">
                 <ItemDetalhes :item='peca' @editar="save" @remove="remove"/>
             </ConteinerDetalhes>
@@ -53,14 +50,15 @@
 </template>
 
 <script>
+import PecaTable from './PecaTable'
 import PecaItemTable from './PecaItemTable'
 import ConteinerDetalhes from '../ConteinerDetalhes'
 import ItemDetalhes from '../ItemDetalhes'
 
 
 export default {
-    name: 'TapPecas',
-    components: { PecaItemTable, ConteinerDetalhes, ItemDetalhes },
+    name: 'TabPecas',
+    components: { PecaTable, PecaItemTable, ConteinerDetalhes, ItemDetalhes },
     computed: {
         pecas() {
             return this.$store.getters.pecasList
@@ -126,23 +124,8 @@ export default {
 </script>
 
 <style>
-.header-tabela {
-    height: 45px;
-    display: flex;
-    align-items: center;
-    user-select: none;
-    /* background-color: #fafafa; */
-    border-bottom: 2px solid #dedede;
-    border-top: 1px solid #eee;
-}
-.header-tabela span {
-    width: 100%;
-}
 .conteudo-pecas {
     width: 100%;
     display: flex;
-}
-.tabela-pecas {
-    width: 100%;
 }
 </style>

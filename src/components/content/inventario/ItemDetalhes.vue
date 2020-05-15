@@ -1,4 +1,8 @@
 <template>
+<div>
+    <div class="item-vazio" v-show="item.name === undefined">
+        <b-icon id='empty-icon-detalhes' style="" icon="file-earmark-text"></b-icon>
+    </div>
     <div class="item-detalhes" v-show="item.name !== undefined">
         <b-icon style="width: 80px; height: 80px;" icon="file-earmark-text"></b-icon>
         <div class="campos">
@@ -21,7 +25,7 @@
                     <strong>Quantidade:</strong>
                 </span>
                 <span class="valorDetalhe" v-show="!editing">{{item.quant}}</span>
-                <input type="text" v-show="editing" v-model="item.quant">
+                <input type="number" v-show="editing" v-model="item.quant">
             </div>
         </div>
         <div class="bts-mode-editar" v-show="editing" style="align-self: flex-end;">
@@ -38,6 +42,7 @@
             <!-- @click="$emit('editar')" -->
         </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -109,6 +114,21 @@ export default {
 </script>
 
 <style>
+.item-vazio {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+#empty-icon-detalhes {
+    width: 100px; 
+    height: 100px;
+    transition: .2s ease;
+}
+#empty-icon-detalhes:hover {
+    width: 150px; 
+    height: 150px;
+    transition: .2s ease;
+}
 .item-detalhes {
     background-color: rgb(230, 244, 255);
     width: 350px;
@@ -164,12 +184,17 @@ export default {
 .bt-item{
     display: flex;
     align-items: center;
-    padding: 8px 12px;
+    justify-content: center;
+    /* padding: 8px 12px; */
+    width: 50px;
+    height: 40px;
     border-radius: 10px;
     cursor: pointer;
 }
 .bt-item:hover {
-    background-color: rgb(223, 237, 255);
+    background-color: rgb(255, 255, 255, .4);
+    border: 1px solid #ddd;
+    box-shadow: 0px 1px #0001;
 }
 .editar-icon {
     width: 25px;
