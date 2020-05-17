@@ -1,5 +1,5 @@
 <template>
-    <div class="peca-item-table" @click="$emit('clicou')" :class="{'peca-color': index%2==0}">
+    <div class="peca-item-table" :class="{'peca-color': index%2==0}">
         <div class="header-table-peca" @click="mostrarDetalhes = !mostrarDetalhes">
             <div v-show="!mostrarDetalhes">{{peca.name}}</div>
             <div v-show="!mostrarDetalhes">{{peca.ref}}</div>

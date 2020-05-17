@@ -17,8 +17,12 @@
                         placeholder="Informe a quantidade.." />
                     </b-form-group>
                 </b-col>
-                
-                <b-col md='3' sm='12' >
+                <b-col md='3' sm='12' v-show="processing.status">
+                    <b-form-group align-v="center">
+                        <b-spinner type="grow" variant='info'></b-spinner>
+                    </b-form-group>
+                </b-col>
+                <b-col md='3' sm='12' v-show="!processing.status">
                     <b-form-group align-v="end">
                         <b-button variant="success" @click="save(ferramenta)">Salvar</b-button>
                         <b-button @click="cancelar" class="ml-2">Cancelar</b-button>
@@ -53,6 +57,7 @@ export default {
     data: function() {
         return {
             novoButton: this.$store.state.global.novoButton,
+            processing: this.$store.state.global.processing,
             ferramenta: {},
             fields: [
                 {key: 'name', label: 'Nome', sortable: true},

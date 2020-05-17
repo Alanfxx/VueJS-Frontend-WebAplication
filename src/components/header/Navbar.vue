@@ -1,56 +1,28 @@
 <template>
-    <div class="nav-container">
-        <nav class="nav-bar">
-            <router-link to="/">
-                <div class="nav-bar-item" :class="flag=='/'?'selected':''">Início</div>
-            </router-link>
-            <router-link to="aparelhos">
-                <div class="nav-bar-item" :class="flag=='/aparelhos'?'selected':''">Aparelhos</div>
-            </router-link>
-            <router-link to="clientes">
-                <div class="nav-bar-item" :class="flag=='/clientes'?'selected':''">Clientes</div>
-            </router-link>
-            <router-link to="inventario">
-                <div class="nav-bar-item" :class="flag=='/inventario'?'selected':''">Inventário</div>
-            </router-link>
-        </nav>
-        <div class="toggle-menu-lateral" @click='visible.status = true' v-show="!visible.status">
-            <b-icon class='list-icon' icon='list'></b-icon>
-        </div>
-        <UserDropdown class="dropdown-visibilidade"/>
-        <MenuLateral :flag='flag' :visible='visible' />
-    </div>
+    <nav class="nav-bar">
+        <router-link to="/">
+            <div class="nav-bar-item" :class="rota=='/'?'selected':''">Início</div>
+        </router-link>
+        <router-link to="aparelhos">
+            <div class="nav-bar-item" :class="rota=='/aparelhos'?'selected':''">Aparelhos</div>
+        </router-link>
+        <router-link to="clientes">
+            <div class="nav-bar-item" :class="rota=='/clientes'?'selected':''">Clientes</div>
+        </router-link>
+        <router-link to="inventario">
+            <div class="nav-bar-item" :class="rota=='/inventario'?'selected':''">Inventário</div>
+        </router-link>
+    </nav>
 </template>
 
 <script>
-import UserDropdown from './UserDropdown'
-import MenuLateral from './MenuLateral'
-
 export default {
     name: "Navbar",
-    components: { UserDropdown, MenuLateral },
-    data: function() {
-        return {
-            visible: {status: false}
-        }
-    },
-    computed: {
-        flag() {
-            return this.$route.path;
-        }
-    }
-}
+    props: ["rota"]
+};
 </script>
 
 <style>
-.nav-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    user-select: none;
-}
 .nav-bar {
     width: 500px;
     height: 100%;
@@ -85,34 +57,10 @@ export default {
     color: #aaa;
     font-size: 1.3rem;
 }
-.toggle-menu-lateral {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 45px;
-    background-color: #7777;
-    border-radius: 8px;
-    margin: 0 10px;
-    padding: 4px 0 0;
-    cursor: pointer;
-}
-.toggle-menu-lateral .list-icon {
-    width: 40px;
-    height: 40px;
-}
-@media (max-width: 900px){
-    .toggle-menu-lateral {
-        display: flex;
-    }
+
+@media (max-width: 900px) {
     .nav-bar {
         display: none;
-    }
-    .dropdown-visibilidade {
-        display: none;
-    }
-    .nav-container {
-        justify-content: flex-end;
     }
 }
 </style>

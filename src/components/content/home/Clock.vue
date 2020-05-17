@@ -4,7 +4,7 @@
         <p class="time">{{ time }}</p>
         <p class="text">Em construção..</p><br>
         <p class="text">Ultima atualização em: </p>
-        <p class="text">17/05/2020 às 8:52</p>
+        <p class="text">17/05/2020 às 13:37</p>
     </div>
 </template>
 

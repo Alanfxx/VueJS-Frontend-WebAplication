@@ -22,7 +22,7 @@
             </div>
             <!-- Botão entrar -->
             <b-button id="bt1" :disabled="showLoading" variant="primary" @click="signin" style="width: 100%">
-                <b-spinner small v-show="showLoading"></b-spinner> {{showLoading ? ' Verificando..' : 'Entrar'}}
+                <b-spinner small type="grow" v-show="showLoading"></b-spinner> {{showLoading ? ' Verificando..' : 'Entrar'}}
             </b-button>
         </div>
     </div>

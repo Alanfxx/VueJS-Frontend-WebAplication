@@ -32,31 +32,40 @@ export default {
         }
     },
     actions: {
-        async loadPecas({commit}) {
+        async loadPecas({commit, rootState}) {
+            rootState.global.processing.status = true
             return await axios.get(`${baseApiUrl}/pecas`).then(res => {
                 commit('setPecas', res.data)
+                rootState.global.processing.status = false
                 return {tipo: 'sucesso' , msg: 'Operação realizada com sucesso'}
             })
             .catch(err => {
+                rootState.global.processing.status = false
                 return {tipo: 'erro' , msg: err.response.data}
             })
         },
-        async savePeca(context, peca) {
+        async savePeca({rootState}, peca) {
+            rootState.global.processing.status = true
             peca.quant = parseInt(peca.quant)
 
             const method = peca.id ? 'put' : 'post'
             const id = peca.id ? `/${peca.id}` : ''
             return await axios[method](`${baseApiUrl}/pecas${id}`, peca).then(() => {
+                    rootState.global.processing.status = false
                     return {tipo: 'sucesso' , msg: 'Dados salvos com sucesso'}
                 }).catch( err => {
+                    rootState.global.processing.status = false
                     return {tipo: 'erro' , msg: err.response.data}
                 })
         },
-        async removePeca(context, peca) {
+        async removePeca({rootState}, peca) {
+            rootState.global.processing.status = true
             const id = peca.id
             return await axios.delete(`${baseApiUrl}/pecas/${id}`).then(() => {
+                    rootState.global.processing.status = false
                     return {tipo: 'sucesso' , msg: 'Excluído com sucesso'}
                 }).catch( err => {
+                    rootState.global.processing.status = false
                     return {tipo: 'erro' , msg: err.response.data}
                 })
         }

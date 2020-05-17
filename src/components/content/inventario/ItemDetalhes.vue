@@ -25,7 +25,10 @@
                 <b-button variant="warning" class="m-2 mr-4" @click="confirmEdicao">Aplicar</b-button>
                 <b-button class="m-2 mr-4" @click="cancelarEdicao">Cancelar</b-button>
             </div>
-            <div class="botoes-detalhes" v-show='!editing'>
+            <div class="prossesando" v-show="processing.status">
+                <b-spinner type="grow" variant='info'></b-spinner>
+            </div>
+            <div class="botoes-detalhes" v-show='!editing && !processing.status'>
                 <b-icon
                     variant="warning"
                     icon="pencil-square"
@@ -52,7 +55,8 @@ export default {
     data: function() {
         return {
             editing: false,
-            itemEditing: {}
+            itemEditing: {},
+            processing: this.$store.state.global.processing
         };
     },
     methods: {
@@ -178,5 +182,10 @@ export default {
     flex-direction: column;
     justify-content: space-around;
     margin-left: 20px;
+}
+.prossesando {
+    height: 100%;
+    display: flex;
+    align-items: center;
 }
 </style>

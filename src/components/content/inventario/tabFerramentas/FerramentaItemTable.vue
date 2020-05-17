@@ -1,5 +1,5 @@
 <template>
-    <div class="ferramenta-item-table" @click="$emit('clicou')" :class="{'ferramenta-color': index%2==0}">
+    <div class="ferramenta-item-table" :class="{'ferramenta-color': index%2==0}">
         <div class="header-table-ferramenta" @click="mostrarDetalhes = !mostrarDetalhes">
             <div class="name" v-show="!mostrarDetalhes">{{ferramenta.name}}</div>
             <div class="name" v-show="!mostrarDetalhes">{{ferramenta.quant}}</div>
@@ -28,7 +28,6 @@ export default {
 .ferramenta-item-table {
     display: flex;
     flex-direction: column;
-    cursor: pointer;
     border-top: 1px solid #ddd;
     border-radius: 3px;
 }
@@ -42,6 +41,7 @@ export default {
     align-items: center;
     font-size: 1.1rem;
     user-select: none;
+    cursor: pointer;
 }
 .header-table-ferramenta div {
     width: 100%;

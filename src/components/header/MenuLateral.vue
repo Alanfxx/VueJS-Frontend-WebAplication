@@ -3,13 +3,13 @@
         @focusout="visible.status = false" tabindex="1">
         <nav class="nav-bar-lateral" >
             <div class="nav-bar-lateral-item" @click="navegar('Home')"
-                :class="flag=='/'?'selected-lateral':''" >Início</div>
+                :class="rota=='/'?'selected-lateral':''" >Início</div>
             <div class="nav-bar-lateral-item" @click="navegar('AparelhoPages')"
-                :class="flag=='/aparelhos'?'selected-lateral':''" >Aparelhos</div>
+                :class="rota=='/aparelhos'?'selected-lateral':''" >Aparelhos</div>
             <div class="nav-bar-lateral-item" @click="navegar('UsuarioPages')"
-                :class="flag=='/clientes'?'selected-lateral':''" >Clientes</div>
+                :class="rota=='/clientes'?'selected-lateral':''" >Clientes</div>
             <div class="nav-bar-lateral-item" @click="navegar('InventarioPages')"
-                :class="flag=='/inventario'?'selected-lateral':''" >Inventário</div>
+                :class="rota=='/inventario'?'selected-lateral':''" >Inventário</div>
         </nav>
     </div>
 </template>
@@ -17,7 +17,7 @@
 <script>
 export default {
     name: 'MenuLateral',
-    props: ['flag', 'visible'],
+    props: ['rota', 'visible'],
     methods: {
         navegar(name){
             if(this.$router.currentRoute.name !== name)
