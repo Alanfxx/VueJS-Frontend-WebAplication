@@ -2,7 +2,9 @@
     <div id="clock">
         <p class="date">{{ date }}</p>
         <p class="time">{{ time }}</p>
-        <p class="text">Em construção..</p>
+        <p class="text">Em construção..</p><br>
+        <p class="text">Ultima atualização em: </p>
+        <p class="text">17/05/2020 às 8:52</p>
     </div>
 </template>
 
@@ -54,7 +56,7 @@ export default {
 }
 .text {
     letter-spacing: 0.1em;
-    font-size: 12px;
+    font-size: .9rem;
     padding: 0;
     margin: 0;
 }

@@ -6,17 +6,17 @@
         <div class="conteudo-item-detalhes">
             <div class="titulos-item-detalhes">
                 <span>Nome:</span>
-                <span v-show="item.ref">Referência:</span>
+                <span v-show="item.ref !== undefined">Referência:</span>
                 <span>Quantidade:</span>
             </div>
             <div class="campos-item-detalhes" v-show="!editing">
                 <span class="valorDetalhe">{{item.name}}</span>
-                <span class="valorDetalhe" v-if="item.ref">{{item.ref}}</span>
+                <span class="valorDetalhe" v-if="item.ref !== undefined">{{item.ref}}</span>
                 <span class="valorDetalhe">{{item.quant}}</span>
             </div>
             <div class="inputs-item-detalhes" v-show="editing">
                 <input type="text" v-model="item.name" />
-                <input type="text" v-model="item.ref" v-if="item.ref"/>
+                <input type="text" v-model="item.ref" v-if="item.ref !== undefined"/>
                 <input type="number" v-model="item.quant" />
             </div>
         </div>

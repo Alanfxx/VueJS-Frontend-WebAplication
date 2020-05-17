@@ -80,12 +80,18 @@ export default {
         }
     },
     methods: {
-        pecaSelected(item) {
-            this.novoButton.status = false
-            this.peca = item
+        pecaToast(msg, variant) {
+            this.$bvToast.toast(msg || 'Sem mensagem', {
+                title: 'Autenticação',
+                variant: variant,
+                solid: true
+            })
         },
         async reset() {
-            await this.$store.dispatch('loadPecas')
+            const res = await this.$store.dispatch('loadPecas')
+            if(res.tipo === 'erro') {
+                this.pecaToast(res.msg, 'danger')
+            }
             this.peca = {}
             this.novoButton.status = false
         },
@@ -94,11 +100,21 @@ export default {
             this.novoButton.status = false
         },
         async save (peca) {
-            await this.$store.dispatch('savePeca', peca)
+            const res = await this.$store.dispatch('savePeca', peca)
+            if(res.tipo === 'sucesso') {
+                this.pecaToast(res.msg, 'success')
+            } else {
+                this.pecaToast(res.msg, 'danger')
+            }
             this.reset() 
         },
         async remove(peca) {
-            await this.$store.dispatch('removePeca', peca)
+            const res = await this.$store.dispatch('removePeca', peca)
+            if(res.tipo === 'sucesso') {
+                this.pecaToast(res.msg, 'success')
+            } else {
+                this.pecaToast(res.msg, 'danger')
+            }
             this.reset()
         }
     },

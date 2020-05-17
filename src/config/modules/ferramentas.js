@@ -32,27 +32,31 @@ export default {
     },
     actions: {
         async loadFerramentas({commit}) {
-            await axios.get(`${baseApiUrl}/ferramentas`).then(res => commit('setFerramentas', res.data))
-                .catch(err => console.log(err)) //melhorar isso
+            return await axios.get(`${baseApiUrl}/ferramentas`).then(res => {
+                commit('setFerramentas', res.data)
+                return {tipo: 'sucesso' , msg: 'Operação realizada com sucesso'}
+            }).catch(err => {
+                return {tipo: 'erro' , msg: err.response.data}
+            })
         },
         async saveFerramenta(context, ferramenta) {
             ferramenta.quant = parseInt(ferramenta.quant)
 
             const method = ferramenta.id ? 'put' : 'post'
             const id = ferramenta.id ? `/${ferramenta.id}` : ''
-            await axios[method](`${baseApiUrl}/ferramentas${id}`, ferramenta).then(() => {
-                    //toasted
-                }).catch( e => {
-                    console.log(e.response.data) // melhorar isso
-                })
+            return await axios[method](`${baseApiUrl}/ferramentas${id}`, ferramenta).then(() => {
+                return {tipo: 'sucesso' , msg: 'Dados salvos com sucesso'}
+            }).catch( err => {
+                return {tipo: 'erro' , msg: err.response.data}
+            })
         },
         async removeFerramenta(context, ferramenta) {
             const id = ferramenta.id
-            await axios.delete(`${baseApiUrl}/ferramentas/${id}`).then(() => {
-                    //toasted
-                }).catch(
-                    //toasted
-                )
+            return await axios.delete(`${baseApiUrl}/ferramentas/${id}`).then(() => {
+                return {tipo: 'sucesso' , msg: 'Excluído com sucesso'}
+            }).catch( err => {
+                return {tipo: 'erro' , msg: err.response.data}
+            })
         }
     },
     getters: {

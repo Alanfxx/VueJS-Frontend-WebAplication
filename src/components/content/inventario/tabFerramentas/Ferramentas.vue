@@ -73,12 +73,18 @@ export default {
         }
     },
     methods: {
-        ferramentaSelected(item) {
-            this.novoButton.status = false
-            this.ferramenta = item
+        ferramentaToast(msg, variant) {
+            this.$bvToast.toast(msg || 'Sem mensagem', {
+                title: 'Autenticação',
+                variant: variant,
+                solid: true
+            })
         },
         async reset() {
-            await this.$store.dispatch('loadFerramentas')
+            const res = await this.$store.dispatch('loadFerramentas')
+            if(res.tipo === 'erro') {
+                this.ferramentaToast(res.msg, 'danger')
+            }
             this.ferramenta = {}
             this.novoButton.status = false
         },
@@ -87,11 +93,21 @@ export default {
             this.novoButton.status = false
         },
         async save (ferramenta) {
-            await this.$store.dispatch('saveFerramenta', ferramenta)
-            this.reset() 
+            const res = await this.$store.dispatch('saveFerramenta', ferramenta)
+            if(res.tipo === 'sucesso') {
+                this.ferramentaToast(res.msg, 'success')
+            } else {
+                this.ferramentaToast(res.msg, 'danger')
+            }
+            this.reset()
         },
         async remove(ferramenta) {
-            await this.$store.dispatch('removeFerramenta', ferramenta)
+            const res = await this.$store.dispatch('removeFerramenta', ferramenta)
+            if(res.tipo === 'sucesso') {
+                this.ferramentaToast(res.msg, 'success')
+            } else {
+                this.ferramentaToast(res.msg, 'danger')
+            }
             this.reset()
         }
     },

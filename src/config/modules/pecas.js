@@ -33,27 +33,32 @@ export default {
     },
     actions: {
         async loadPecas({commit}) {
-            await axios.get(`${baseApiUrl}/pecas`).then(res => commit('setPecas', res.data))
-                .catch(err => console.log(err)) //melhorar isso
+            return await axios.get(`${baseApiUrl}/pecas`).then(res => {
+                commit('setPecas', res.data)
+                return {tipo: 'sucesso' , msg: 'Operação realizada com sucesso'}
+            })
+            .catch(err => {
+                return {tipo: 'erro' , msg: err.response.data}
+            })
         },
         async savePeca(context, peca) {
             peca.quant = parseInt(peca.quant)
 
             const method = peca.id ? 'put' : 'post'
             const id = peca.id ? `/${peca.id}` : ''
-            await axios[method](`${baseApiUrl}/pecas${id}`, peca).then(() => {
-                    //toasted
-                }).catch( e => {
-                    console.log(e.response.data) // melhorar isso
+            return await axios[method](`${baseApiUrl}/pecas${id}`, peca).then(() => {
+                    return {tipo: 'sucesso' , msg: 'Dados salvos com sucesso'}
+                }).catch( err => {
+                    return {tipo: 'erro' , msg: err.response.data}
                 })
         },
         async removePeca(context, peca) {
             const id = peca.id
-            await axios.delete(`${baseApiUrl}/pecas/${id}`).then(() => {
-                    //toasted
-                }).catch(
-                    //toasted
-                )
+            return await axios.delete(`${baseApiUrl}/pecas/${id}`).then(() => {
+                    return {tipo: 'sucesso' , msg: 'Excluído com sucesso'}
+                }).catch( err => {
+                    return {tipo: 'erro' , msg: err.response.data}
+                })
         }
     },
     getters: {
