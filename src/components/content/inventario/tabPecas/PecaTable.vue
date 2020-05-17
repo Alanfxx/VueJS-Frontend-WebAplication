@@ -15,6 +15,13 @@
                     <b-icon class='ml-1' icon="chevron-compact-up" v-show="keyTable.order === 'decr'"></b-icon>
                 </div>
             </div>
+            <div @click="setKeyTable('quant')" class="header-tabela-item">
+                <strong>Quantidade</strong>
+                <div v-show="keyTable.key === 'quant'">
+                    <b-icon class='ml-1' icon="chevron-compact-down" v-show="keyTable.order === 'cresc'"></b-icon>
+                    <b-icon class='ml-1' icon="chevron-compact-up" v-show="keyTable.order === 'decr'"></b-icon>
+                </div>
+            </div>
         </div>
         <slot />
     </div>

@@ -21,7 +21,7 @@ export default {
                         : b[key] > a[key] ? -1 : 0)
                 }
             } else {
-                if(isNaN(state.pecas[key])) {
+                if(isNaN(state.pecas[Object.keys(state.pecas)[0]][key])) {
                     state.pecas.sort((a, b) => a[key].toUpperCase() < b[key].toUpperCase() ? 1 
                         : b[key].toUpperCase() < a[key].toUpperCase() ? -1 : 0)
                 } else {

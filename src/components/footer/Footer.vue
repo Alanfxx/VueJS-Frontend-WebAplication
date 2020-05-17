@@ -17,6 +17,7 @@ export default {};
     align-items: center;
     justify-content: flex-end;
     z-index: 2;
+    user-select: none;
 }
 .app-footer span {
     margin-right: 15px;

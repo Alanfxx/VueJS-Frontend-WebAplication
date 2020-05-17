@@ -7,7 +7,7 @@
                     <b-tab title='Peças' active style="padding: 20px 10px;">
                         <Pecas />
                     </b-tab>
-                    <b-tab title='Ferramentas'>
+                    <b-tab title='Ferramentas' style="padding: 20px 10px;">
                         <Ferramentas />
                     </b-tab>
                 </b-tabs>

@@ -20,7 +20,7 @@ export default {
                         : b[key] > a[key] ? -1 : 0)
                 }
             } else {
-                if(isNaN(state.ferramentas[key])) {
+                if(isNaN(state.ferramentas[Object.keys(state.ferramentas)[0]][key])) {
                     state.ferramentas.sort((a, b) => a[key].toUpperCase() < b[key].toUpperCase() ? 1 
                         : b[key].toUpperCase() < a[key].toUpperCase() ? -1 : 0)
                 } else {

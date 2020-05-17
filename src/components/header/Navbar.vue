@@ -14,17 +14,26 @@
                 <div class="nav-bar-item" :class="flag=='/inventario'?'selected':''">Inventário</div>
             </router-link>
         </nav>
-        <!-- UserDropdown -->
-        <UserDropdown />
+        <div class="toggle-menu-lateral" @click='visible.status = true' v-show="!visible.status">
+            <b-icon class='list-icon' icon='list'></b-icon>
+        </div>
+        <UserDropdown class="dropdown-visibilidade"/>
+        <MenuLateral :flag='flag' :visible='visible' />
     </div>
 </template>
 
 <script>
 import UserDropdown from './UserDropdown'
+import MenuLateral from './MenuLateral'
 
 export default {
     name: "Navbar",
-    components: { UserDropdown },
+    components: { UserDropdown, MenuLateral },
+    data: function() {
+        return {
+            visible: {status: false}
+        }
+    },
     computed: {
         flag() {
             return this.$route.path;
@@ -39,9 +48,12 @@ export default {
     height: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    user-select: none;
 }
 .nav-bar {
     width: 500px;
+    height: 100%;
     display: flex;
     justify-content: center;
     color: #aaa;
@@ -73,7 +85,34 @@ export default {
     color: #aaa;
     font-size: 1.3rem;
 }
-/* @media (max-width: 575px){
-    
-} */
+.toggle-menu-lateral {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 45px;
+    background-color: #7777;
+    border-radius: 8px;
+    margin: 0 10px;
+    padding: 4px 0 0;
+    cursor: pointer;
+}
+.toggle-menu-lateral .list-icon {
+    width: 40px;
+    height: 40px;
+}
+@media (max-width: 900px){
+    .toggle-menu-lateral {
+        display: flex;
+    }
+    .nav-bar {
+        display: none;
+    }
+    .dropdown-visibilidade {
+        display: none;
+    }
+    .nav-container {
+        justify-content: flex-end;
+    }
+}
 </style>

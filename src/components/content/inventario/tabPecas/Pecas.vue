@@ -28,7 +28,7 @@
                 
                 <b-col md='3' sm='12' >
                     <b-form-group align-v="end">
-                        <b-button variant="success" @click="save">Salvar</b-button>
+                        <b-button variant="success" @click="save(peca)">Salvar</b-button>
                         <b-button @click="cancelar" class="ml-2">Cancelar</b-button>
                     </b-form-group>
                 </b-col>
@@ -37,28 +37,21 @@
         <div class="conteudo-pecas">
             <!-- Tabela dos itens -->
             <PecaTable>
-                <PecaItemTable v-for="(item, i) in pecas" :key="i"
-                    :peca="item" :index="i" @clicou="pecaSelected(item)"/>
+                <PecaItemTable v-for="(item, i) in pecas" :key="i" :peca="item" :index="i"
+                    @editar='save(item)' @remove='remove(item)'/>
             </PecaTable>
-            <!-- //Detalhe do item selecionado -->
-            <ConteinerDetalhes :mostrarDetalhes="mostrarDetalhes">
-                <ItemDetalhes :item='peca' @editar="save" @remove="remove"/>
-            </ConteinerDetalhes>
         </div>
-
     </div>
 </template>
 
 <script>
 import PecaTable from './PecaTable'
 import PecaItemTable from './PecaItemTable'
-import ConteinerDetalhes from '../ConteinerDetalhes'
-import ItemDetalhes from '../ItemDetalhes'
 
 
 export default {
     name: 'TabPecas',
-    components: { PecaTable, PecaItemTable, ConteinerDetalhes, ItemDetalhes },
+    components: { PecaTable, PecaItemTable },
     computed: {
         pecas() {
             return this.$store.getters.pecasList
@@ -73,10 +66,7 @@ export default {
                 {key: 'ref', label: 'Referência', sortable: false},
                 {key: 'quant', label: 'Quantidade', sortable: true},
                 {key: 'actions', label: 'Ações'}
-            ],
-            mostrarDetalhes: {
-                status: false
-            }
+            ]
         }
     },
     watch: {
@@ -85,7 +75,6 @@ export default {
             handler: function() {
                 if(this.novoButton.status) {
                     this.peca = {}
-                    this.mostrarDetalhes.status = false
                 }
             }
         }
@@ -93,32 +82,29 @@ export default {
     methods: {
         pecaSelected(item) {
             this.novoButton.status = false
-            this.mostrarDetalhes.status = true
             this.peca = item
         },
         async reset() {
             await this.$store.dispatch('loadPecas')
             this.peca = {}
             this.novoButton.status = false
-            this.mostrarDetalhes.status = false
         },
         cancelar() {
             this.peca = {}
             this.novoButton.status = false
         },
-        async save () {
-            await this.$store.dispatch('savePeca', this.peca)
+        async save (peca) {
+            await this.$store.dispatch('savePeca', peca)
             this.reset() 
         },
-        async remove() {
-            await this.$store.dispatch('removePeca', this.peca)
+        async remove(peca) {
+            await this.$store.dispatch('removePeca', peca)
             this.reset()
         }
     },
     mounted() {
         this.peca = {}
         this.novoButton.status = false
-        this.mostrarDetalhes.status = false
     }
 }
 </script>
@@ -128,4 +114,5 @@ export default {
     width: 100%;
     display: flex;
 }
+
 </style>

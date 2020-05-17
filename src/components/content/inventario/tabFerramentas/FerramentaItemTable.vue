@@ -1,37 +1,53 @@
 <template>
     <div class="ferramenta-item-table" @click="$emit('clicou')" :class="{'ferramenta-color': index%2==0}">
-        <div class="name">{{ferramenta.name}}</div>
-        <!-- <div class="quant">{{ferramenta.quant}}</div> -->
+        <div class="header-table-ferramenta" @click="mostrarDetalhes = !mostrarDetalhes">
+            <div class="name" v-show="!mostrarDetalhes">{{ferramenta.name}}</div>
+            <div class="name" v-show="!mostrarDetalhes">{{ferramenta.quant}}</div>
+            <b-icon style="width: 40px; height: 40px; color: #777;" icon='chevron-double-up' v-show="mostrarDetalhes"></b-icon>
+        </div>
+        <ItemDetalhes :item='ferramenta' @editar="$emit('editar')" 
+                @remove="$emit('remove')" v-show="mostrarDetalhes"/>
     </div>
 </template>
 
 <script>
+import ItemDetalhes from '../ItemDetalhes'
 export default {
     name: "FerramentaItemTable",
-    props: [ 'ferramenta', 'index' ]
+    props: [ 'ferramenta', 'index' ],
+    components: { ItemDetalhes },
+    data: function() {
+        return {
+            mostrarDetalhes: false
+        }
+    }
 }
 </script>
 
 <style>
 .ferramenta-item-table {
-    height: 40px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     cursor: pointer;
-
     border-top: 1px solid #ddd;
     border-radius: 3px;
-    /* border-collapse: collapse; */
 }
 .ferramenta-color {
     background-color: #f1f1f1;
 }
-.ferramenta-item-table:hover {
-    background-color: rgb(238, 255, 238);
+.header-table-ferramenta {
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1rem;
+    user-select: none;
 }
-.ferramenta-item-table div {
+.header-table-ferramenta div {
     width: 100%;
-    /* border-right: 1px solid #eee; */
+}
+.header-table-ferramenta:hover {
+    background-color: rgb(238, 255, 238);
+    border-bottom: 1px solid #eee;
 }
 </style>
