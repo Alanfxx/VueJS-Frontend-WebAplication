@@ -7,7 +7,8 @@
             <b-icon style="width: 40px; height: 40px; color: #777;" icon='chevron-double-up' v-show="mostrarDetalhes"></b-icon>
         </div>
         <ItemDetalhes :item='peca' @editar="$emit('editar')" 
-            @remove="$emit('remove')" v-show="mostrarDetalhes"/>
+            @remove="$emit('remove')" :mostrarDetalhes="mostrarDetalhes"/>
+                <!-- Alterei aqui -->
     </div>
 </template>
 

@@ -52,7 +52,7 @@ export default {
     z-index: 5;
 }
 .logo-container {
-    width: 48px;
+    width: 90px;
     height: 100%;
     display: flex;
     justify-content: center;

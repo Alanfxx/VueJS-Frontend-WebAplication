@@ -1,45 +1,9 @@
 <template>
     <div class="tab-pecas">
-        <!-- Formulario de inserção de novo item (bootstrap) -->
-        <b-form v-show="novoButton.status">
-            <input id="peca-id" type="hidden" v-model="peca.id">
-            <b-row align-v="end">
-                <b-col md='3' sm='12'>
-                    <b-form-group label='Nome:' label-for='peca-name' label-align="left">
-                        <b-form-input id="peca-name" type="text"
-                        v-model="peca.name" required
-                        placeholder="Informe o nome.." />
-                    </b-form-group>
-                </b-col>
-                <b-col md='3' sm='12'>
-                    <b-form-group label='Referencia:' label-for='peca-ref' label-align="left">
-                        <b-form-input id="peca-ref" type="text"
-                        v-model="peca.ref" required
-                        placeholder="Informe a referência.." />
-                    </b-form-group>
-                </b-col>
-                <b-col md='3' sm='12'>
-                    <b-form-group label='Quantidade:' label-for='peca-quant' label-align="left">
-                        <b-form-input id="peca-quant" type="number"
-                        v-model="peca.quant" required
-                        placeholder="Informe a quantidade.." />
-                    </b-form-group>
-                </b-col>
-                <b-col md='3' sm='12' v-show="processing.status">
-                    <b-form-group align-v="center">
-                        <b-spinner type="grow" variant='info'></b-spinner>
-                    </b-form-group>
-                </b-col>
-                <b-col md='3' sm='12' v-show="!processing.status">
-                    <b-form-group align-v="end">
-                        <b-button variant="success" @click="save(peca)">Salvar</b-button>
-                        <b-button @click="cancelar" class="ml-2">Cancelar</b-button>
-                    </b-form-group>
-                </b-col>
-            </b-row>
-        </b-form>
-        <div class="conteudo-pecas">
+            <!-- Formulario novo -->
+        <FormularioNovo :tabAtual='tabAtual' @salvar='saveCallback'/>
             <!-- Tabela dos itens -->
+        <div class="conteudo-pecas">
             <PecaTable>
                 <PecaItemTable v-for="(item, i) in pecas" :key="i" :peca="item" :index="i"
                     @editar='save(item)' @remove='remove(item)'/>
@@ -49,39 +13,22 @@
 </template>
 
 <script>
+import FormularioNovo from '../FormularioNovo'
 import PecaTable from './PecaTable'
 import PecaItemTable from './PecaItemTable'
 
 
 export default {
     name: 'TabPecas',
-    components: { PecaTable, PecaItemTable },
+    components: { PecaTable, PecaItemTable, FormularioNovo },
+    data: function() {
+        return {
+            tabAtual: 'pecas'
+        }
+    },
     computed: {
         pecas() {
             return this.$store.getters.pecasList
-        }
-    },
-    data: function() {
-        return {
-            novoButton: this.$store.state.global.novoButton,
-            processing: this.$store.state.global.processing,
-            peca: {},
-            fields: [
-                {key: 'name', label: 'Nome', sortable: true},
-                {key: 'ref', label: 'Referência', sortable: false},
-                {key: 'quant', label: 'Quantidade', sortable: true},
-                {key: 'actions', label: 'Ações'}
-            ]
-        }
-    },
-    watch: {
-        novoButton: {
-            deep: true,
-            handler: function() {
-                if(this.novoButton.status) {
-                    this.peca = {}
-                }
-            }
         }
     },
     methods: {
@@ -92,17 +39,15 @@ export default {
                 solid: true
             })
         },
+        async saveCallback({data, cb}){
+            await this.save(data)
+            cb()
+        },
         async reset() {
             const res = await this.$store.dispatch('loadPecas')
             if(res.tipo === 'erro') {
                 this.pecaToast(res.msg, 'danger')
             }
-            this.peca = {}
-            this.novoButton.status = false
-        },
-        cancelar() {
-            this.peca = {}
-            this.novoButton.status = false
         },
         async save (peca) {
             const res = await this.$store.dispatch('savePeca', peca)
@@ -122,10 +67,6 @@ export default {
             }
             this.reset()
         }
-    },
-    mounted() {
-        this.peca = {}
-        this.novoButton.status = false
     }
 }
 </script>

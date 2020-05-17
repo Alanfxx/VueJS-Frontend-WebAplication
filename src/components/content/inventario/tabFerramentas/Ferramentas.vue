@@ -1,38 +1,9 @@
 <template>
     <div class="tap-ferramentas">
-        <b-form v-show="novoButton.status">
-            <input id="ferramenta-id" type="hidden" v-model="ferramenta.id">
-            <b-row align-v="end">
-                <b-col md='3' sm='12'>
-                    <b-form-group label='Nome:' label-for='ferramenta-name' label-align="left">
-                        <b-form-input id="ferramenta-name" type="text"
-                        v-model="ferramenta.name" required
-                        placeholder="Informe o nome.." />
-                    </b-form-group>
-                </b-col>
-                <b-col md='3' sm='12'>
-                    <b-form-group label='Quantidade:' label-for='ferramenta-quant' label-align="left">
-                        <b-form-input id="ferramenta-quant" type="number"
-                        v-model="ferramenta.quant" required
-                        placeholder="Informe a quantidade.." />
-                    </b-form-group>
-                </b-col>
-                <b-col md='3' sm='12' v-show="processing.status">
-                    <b-form-group align-v="center">
-                        <b-spinner type="grow" variant='info'></b-spinner>
-                    </b-form-group>
-                </b-col>
-                <b-col md='3' sm='12' v-show="!processing.status">
-                    <b-form-group align-v="end">
-                        <b-button variant="success" @click="save(ferramenta)">Salvar</b-button>
-                        <b-button @click="cancelar" class="ml-2">Cancelar</b-button>
-                    </b-form-group>
-                </b-col>
-            </b-row>
-        </b-form>
-        <!-- =============== -->
-        <div class="conteudo-ferramentas">
+            <!-- Formulario novo -->
+        <FormularioNovo :tabAtual='tabAtual' @salvar='saveCallback'/>
             <!-- Tabela dos itens -->
+        <div class="conteudo-ferramentas">
             <FerramentaTable>
                 <FerramentaItemTable v-for="(item, i) in ferramentas" :key="i" :ferramenta="item" :index="i"
                     @editar='save(item)' @remove='remove(item)'/>
@@ -42,39 +13,22 @@
 </template>
 
 <script>
+import FormularioNovo from '../FormularioNovo'
 import FerramentaTable from './FerramentaTable'
 import FerramentaItemTable from './FerramentaItemTable'
 
 
 export default {
     name: 'TapFerramentas',
-    components: { FerramentaTable, FerramentaItemTable },
+    components: { FerramentaTable, FerramentaItemTable, FormularioNovo },
+    data: function() {
+        return {
+            tabAtual: 'ferramentas'
+        }
+    },
     computed: {
         ferramentas() {
             return this.$store.getters.ferramentasList
-        }
-    },
-    data: function() {
-        return {
-            novoButton: this.$store.state.global.novoButton,
-            processing: this.$store.state.global.processing,
-            ferramenta: {},
-            fields: [
-                {key: 'name', label: 'Nome', sortable: true},
-                {key: 'ref', label: 'Referência', sortable: false},
-                {key: 'quant', label: 'Quantidade', sortable: true},
-                {key: 'actions', label: 'Ações'}
-            ]
-        }
-    },
-    watch: {
-        novoButton: {
-            deep: true,
-            handler: function() {
-                if(this.novoButton.status) {
-                    this.ferramenta = {}
-                }
-            }
         }
     },
     methods: {
@@ -85,17 +39,15 @@ export default {
                 solid: true
             })
         },
+        async saveCallback({data, cb}){
+            await this.save(data)
+            cb()
+        },
         async reset() {
             const res = await this.$store.dispatch('loadFerramentas')
             if(res.tipo === 'erro') {
                 this.ferramentaToast(res.msg, 'danger')
             }
-            this.ferramenta = {}
-            this.novoButton.status = false
-        },
-        cancelar() {
-            this.ferramenta = {}
-            this.novoButton.status = false
         },
         async save (ferramenta) {
             const res = await this.$store.dispatch('saveFerramenta', ferramenta)
@@ -115,10 +67,6 @@ export default {
             }
             this.reset()
         }
-    },
-    mounted() {
-        this.ferramenta = {}
-        this.novoButton.status = false
     }
 }
 </script>
