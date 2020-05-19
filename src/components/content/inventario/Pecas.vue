@@ -4,23 +4,23 @@
         <FormularioNovo :tabAtual='tabAtual' @salvar='saveCallback'/>
             <!-- Tabela dos itens -->
         <div class="conteudo-pecas">
-            <PecaTable>
-                <PecaItemTable v-for="(item, i) in pecas" :key="i" :peca="item" :index="i"
-                    @editar='save(item)' @remove='remove(item)'/>
-            </PecaTable>
+            <TableContainer :tabAtual='tabAtual'>
+                <ItemTable v-for="(item, i) in pecas" :key="i" :item="item" :index="i"
+                    @editar='save' @remove='remove(item)'/>
+            </TableContainer>
         </div>
     </div>
 </template>
 
 <script>
-import FormularioNovo from '../FormularioNovo'
-import PecaTable from './PecaTable'
-import PecaItemTable from './PecaItemTable'
+import FormularioNovo from './comum/FormularioNovo'
+import TableContainer from './comum/TableContainer'
+import ItemTable from './comum/ItemTable'
 
 
 export default {
     name: 'TabPecas',
-    components: { PecaTable, PecaItemTable, FormularioNovo },
+    components: { TableContainer, ItemTable, FormularioNovo },
     data: function() {
         return {
             tabAtual: 'pecas'
@@ -56,7 +56,7 @@ export default {
             } else {
                 this.pecaToast(res.msg, 'danger')
             }
-            this.reset() 
+            this.reset()
         },
         async remove(peca) {
             const res = await this.$store.dispatch('removePeca', peca)
@@ -75,6 +75,8 @@ export default {
 .conteudo-pecas {
     width: 100%;
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 </style>

@@ -3,8 +3,8 @@
 		<PageTitle icon="tools" main="Inventário" sub="Controle de peças e ferramentas" />
 		<div class="admin-pages-tabs">
 			<b-card no-body>
-                <b-tabs card>
-                    <b-tab title='Peças' active style="padding: 20px 10px;">
+                <b-tabs card align="center">
+                    <b-tab title='Peças' active style="padding: 20px 3px;">
                         <Pecas />
                     </b-tab>
                     <b-tab title='Ferramentas' style="padding: 20px 10px;">
@@ -18,8 +18,8 @@
 
 <script>
 import PageTitle from "../PageTitle.vue"
-import Pecas from './tabPecas/Pecas'
-import Ferramentas from './tabFerramentas/Ferramentas'
+import Pecas from './Pecas'
+import Ferramentas from './Ferramentas'
 
 export default {
 	name: "inventario-pages",
@@ -36,6 +36,6 @@ export default {
 }
 .admin-pages-tabs {
     width: 100%;
-    padding: 8px;
+    padding: 5px 3px;
 }
 </style>

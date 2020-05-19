@@ -12,9 +12,9 @@ import Header from "./components/header/Header"
 import Content from "./components/content/Content"
 import Footer from "./components/footer/Footer"
 import Loading from "./components/Loading"
-// import axios from "axios"//
+import axios from "axios"//
 import { 
-// baseApiUrl, //
+baseApiUrl, //
 userKey } from "@/global"
 
 export default {
@@ -33,7 +33,7 @@ export default {
             const json = localStorage.getItem(userKey)
             const userData = JSON.parse(json)
             this.$store.dispatch('adicionarUser', null)
-            // this.$store.commit("setUser", null)//
+            this.$store.commit("setUser", null)//
 
             if (!userData) {
                 this.validatingToken = false;
@@ -42,19 +42,19 @@ export default {
                 return
             }
 
-            // const res = await axios.post(//>
-            //     `${baseApiUrl}/validateToken`,
-            //     userData
-            // );
+            const res = await axios.post(//>
+                `${baseApiUrl}/validateToken`,
+                userData
+            );
 
-            // if (res.data) {//^
+            if (res.data) {//^
                 this.$store.dispatch('adicionarUser', userData)
-            //     this.$store.commit("setUser", userData)//>
-            // } else {
-            //     localStorage.removeItem(userKey)
-            //     if(this.$router.currentRoute.name !== 'auth')
-            //         this.$router.push({ name: "auth" })
-            // }//^
+                this.$store.commit("setUser", userData)//>
+            } else {
+                localStorage.removeItem(userKey)
+                if(this.$router.currentRoute.name !== 'auth')
+                    this.$router.push({ name: "auth" })
+            }//^
 
             this.validatingToken = false;
         }
@@ -77,7 +77,6 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    /* background-color: rgb(219, 246, 255); */
     color: #111;
     height: 100vh;
     display: grid;

@@ -4,23 +4,23 @@
         <FormularioNovo :tabAtual='tabAtual' @salvar='saveCallback'/>
             <!-- Tabela dos itens -->
         <div class="conteudo-ferramentas">
-            <FerramentaTable>
-                <FerramentaItemTable v-for="(item, i) in ferramentas" :key="i" :ferramenta="item" :index="i"
-                    @editar='save(item)' @remove='remove(item)'/>
-            </FerramentaTable>
+            <TableContainer>
+                <ItemTable v-for="(item, i) in ferramentas" :key="i" :item="item" :index="i"
+                    @editar='save' @remove='remove(item)'/>
+            </TableContainer>
         </div>
     </div>
 </template>
 
 <script>
-import FormularioNovo from '../FormularioNovo'
-import FerramentaTable from './FerramentaTable'
-import FerramentaItemTable from './FerramentaItemTable'
+import FormularioNovo from './comum/FormularioNovo'
+import TableContainer from './comum/TableContainer'
+import ItemTable from './comum/ItemTable'
 
 
 export default {
     name: 'TapFerramentas',
-    components: { FerramentaTable, FerramentaItemTable, FormularioNovo },
+    components: { TableContainer, ItemTable, FormularioNovo },
     data: function() {
         return {
             tabAtual: 'ferramentas'
@@ -75,5 +75,6 @@ export default {
 .conteudo-ferramentas {
     width: 100%;
     display: flex;
+    justify-content: center;
 }
 </style>

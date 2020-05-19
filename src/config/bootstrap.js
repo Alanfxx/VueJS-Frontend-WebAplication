@@ -8,17 +8,17 @@ import Vue from 'vue'
 import { 
     ButtonPlugin,
     FormInputPlugin, 
-    FormPlugin, 
+    FormPlugin,
     BootstrapVueIcons, 
     AvatarPlugin,  
     ToastPlugin, 
     // TooltipPlugin,
     SpinnerPlugin,
-    NavbarPlugin,
+    // NavbarPlugin,
     CardPlugin,
     TabsPlugin,
-    TablePlugin,
-    LayoutPlugin,
+    // TablePlugin,
+    // LayoutPlugin,
     FormGroupPlugin,
     ModalPlugin
 } from 'bootstrap-vue'
@@ -31,10 +31,10 @@ Vue.use(AvatarPlugin)
 Vue.use(ToastPlugin)
 // Vue.use(TooltipPlugin)
 Vue.use(SpinnerPlugin)
-Vue.use(NavbarPlugin)
+// Vue.use(NavbarPlugin)
 Vue.use(CardPlugin)
 Vue.use(TabsPlugin)
-Vue.use(TablePlugin)
-Vue.use(LayoutPlugin)
+// Vue.use(TablePlugin)
+// Vue.use(LayoutPlugin)
 Vue.use(FormGroupPlugin)
 Vue.use(ModalPlugin)
