@@ -1,7 +1,8 @@
 <template>
     <div class="tap-ferramentas">
             <!-- Formulario novo -->
-        <FormularioNovo :tabAtual='tabAtual' @salvar='saveCallback'/>
+        <FormularioNovo :tabAtual='tabAtual' :novo="novo"
+            @salvar='save'/>
             <!-- Tabela dos itens -->
         <div class="conteudo-ferramentas">
             <TableContainer>
@@ -21,6 +22,7 @@ import ItemTable from './comum/ItemTable'
 export default {
     name: 'TapFerramentas',
     components: { TableContainer, ItemTable, FormularioNovo },
+    props: ['novo'],
     data: function() {
         return {
             tabAtual: 'ferramentas'
@@ -34,15 +36,15 @@ export default {
     methods: {
         ferramentaToast(msg, variant) {
             this.$bvToast.toast(msg || 'Sem mensagem', {
-                title: 'Autenticação',
+                title: 'Inventário',
                 variant: variant,
                 solid: true
             })
         },
-        async saveCallback({data, cb}){
-            await this.save(data)
-            cb()
-        },
+        // async saveCallback({data, cb}){
+        //     await this.save(data)
+        //     cb()
+        // },
         async reset() {
             const res = await this.$store.dispatch('loadFerramentas')
             if(res.tipo === 'erro') {
@@ -53,19 +55,19 @@ export default {
             const res = await this.$store.dispatch('saveFerramenta', ferramenta)
             if(res.tipo === 'sucesso') {
                 this.ferramentaToast(res.msg, 'success')
+                this.reset()
             } else {
                 this.ferramentaToast(res.msg, 'danger')
             }
-            this.reset()
         },
         async remove(ferramenta) {
             const res = await this.$store.dispatch('removeFerramenta', ferramenta)
             if(res.tipo === 'sucesso') {
                 this.ferramentaToast(res.msg, 'success')
+                this.reset()
             } else {
                 this.ferramentaToast(res.msg, 'danger')
             }
-            this.reset()
         }
     }
 }

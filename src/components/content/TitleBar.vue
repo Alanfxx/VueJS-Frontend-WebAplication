@@ -12,15 +12,14 @@
 <script>
 export default {
   name: "TitleBar",
-  props: ["title"],
-  data: function() {
-    return {
-      novo: this.$store.state.global.novoButton
-    };
-  },
+  props: ["title", "novo"],
   methods: {
     alterarNovo() {
-      this.novo.status = true;
+      if(this.title === 'Peças') {
+        this.novo.pecas = true;
+      } else if(this.title === 'Ferramentas') {
+        this.novo.ferramentas = true;
+      }
     }
   }
 };

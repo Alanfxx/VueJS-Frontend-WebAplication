@@ -53,7 +53,8 @@ export default {
 }
 .selected {
     background-color: rgba(255, 255, 255, 0.1);
-    border-bottom: 3px solid limegreen;
+    border-bottom: 4px solid limegreen;
+    /* border-bottom: 4px solid white; */
     color: #aaa;
     font-size: 1.3rem;
     box-shadow: 0 -10px 10px 0 #222;

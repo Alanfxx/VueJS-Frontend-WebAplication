@@ -48,7 +48,6 @@ export default {
     justify-content: space-between;
     align-items: center;
     background: #343a40;
-    border-bottom: 1px solid #222;
     z-index: 5;
     user-select: none;
 }

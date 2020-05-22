@@ -12,9 +12,9 @@
     </Aside>
 
     <div class="inventario-content">
-      <TitleBar :title="tab"/>
-      <Pecas v-show="tab==='Peças'"/>
-      <Ferramentas v-show="tab==='Ferramentas'"/>
+      <TitleBar :title="tab" :novo="novo"/>
+      <Pecas v-show="tab==='Peças'" :novo="novo"/>
+      <Ferramentas v-show="tab==='Ferramentas'" :novo="novo"/>
     </div>
   </div>
 </template>
@@ -32,6 +32,7 @@ export default {
   data: function() {
     return {
       reduce: { status: false },
+      novo: {pecas: false, ferramentas: false},
       tab: 'Peças'
     };
   }
