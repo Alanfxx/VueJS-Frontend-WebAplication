@@ -56,6 +56,7 @@ export default {
     border-bottom: 3px solid limegreen;
     color: #aaa;
     font-size: 1.3rem;
+    box-shadow: 0 -10px 10px 0 #222;
 }
 
 @media (max-width: 900px) {

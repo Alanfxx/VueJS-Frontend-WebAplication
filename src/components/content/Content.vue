@@ -13,6 +13,7 @@ export default {};
     grid-area: content;
     display: flex;
     justify-content: center;
+    overflow: auto;
     z-index: 2;
 }
 </style>

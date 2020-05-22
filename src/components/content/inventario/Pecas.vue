@@ -72,11 +72,7 @@ export default {
 </script>
 
 <style>
-.conteudo-pecas {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.tab-pecas {
+    grid-area: content;
 }
-
 </style>

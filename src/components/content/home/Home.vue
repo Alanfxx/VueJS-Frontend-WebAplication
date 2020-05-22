@@ -1,48 +1,31 @@
 <template>
-    <div class="home-page">
-        <Clock class='clock' />
-        <img src="@/assets/web-contrucao.svg" alt="Logo" class="logo-home" />
-    </div>
+  <div class="home-page">
+    <Clock class="clock" />
+    <img src="@/assets/web-contrucao.svg" alt="Logo" class="imagem-home" />
+  </div>
 </template>
 
 <script>
 import Clock from "./Clock";
 
 export default {
-    components: { Clock }
-}
+  components: { Clock }
+};
 </script>
 
 <style>
 .home-page {
     width: 100%;
     display: flex;
-    justify-content: left;
     flex-wrap: wrap;
-    background-color: rgb(238, 255, 238);
-}
-.logo-home {
-    width: 65%;
-    margin-left: 100px;
-    user-select: none;
+    justify-content: space-evenly;
+    padding: 0 10px;
 }
 .clock {
-    position: absolute;
-    top: 100px;
-    right: 8%;
+    margin-top: 50px;
 }
-@media (max-width: 1000px) {
-    .home-page {
-       justify-content: center; 
-    }
-    .logo-home {
-        width: 90%;
-        height: 30%;
-        margin: 0;
-    }
-    .clock {
-        position: unset;
-        height: 70px;
-    }
+.imagem-home {
+    max-width: 100%;
+    max-height: 500px;
 }
 </style>

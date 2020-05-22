@@ -1,6 +1,6 @@
 <template>
     <div class="menu-lateral" v-show="visible.status"
-        @focusout="visible.status = false" tabindex="1">
+        @focusout="toggleMenuLateral" tabindex="1">
         <nav class="nav-bar-lateral" >
             <div class="nav-bar-lateral-item" @click="navegar('Home')"
                 :class="rota=='/'?'selected-lateral':''" >Início</div>
@@ -19,9 +19,12 @@ export default {
     name: 'MenuLateral',
     props: ['rota', 'visible'],
     methods: {
+        toggleMenuLateral() {
+            setTimeout(() => this.visible.status = false, 100)
+        },
         navegar(name){
             if(this.$router.currentRoute.name !== name)
-            this.$router.push({ name });
+                this.$router.push({ name });
         }
     },
     watch: {
@@ -29,9 +32,7 @@ export default {
             deep: true,
             handler() {
                 if(this.visible.status) {
-                    setTimeout(() => {
-                        document.querySelector('.menu-lateral').focus()
-                    }, 100)
+                    setTimeout(() => document.querySelector('.menu-lateral').focus(), 200)
                 }
             }
         }
@@ -44,15 +45,14 @@ export default {
 .menu-lateral {
     outline: none;
     position: absolute;
-    right: 0px;
-    top: 0px;
+    top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 250px;
-    height: 100%;
-    background-color: rgb(52, 58, 64);
-    user-select: none;
+    width: 100%;
+    height: auto;
+    padding: 10px 0;
+    background-color: rgb(52, 58, 64,.9);
 }
 .nav-bar-lateral {
     display: flex;

@@ -1,41 +1,60 @@
 <template>
-	<div class="inventario-pages">
-		<PageTitle icon="tools" main="Inventário" sub="Controle de peças e ferramentas" />
-		<div class="admin-pages-tabs">
-			<b-card no-body>
-                <b-tabs card align="center">
-                    <b-tab title='Peças' active style="padding: 20px 3px;">
-                        <Pecas />
-                    </b-tab>
-                    <b-tab title='Ferramentas' style="padding: 20px 10px;">
-                        <Ferramentas />
-                    </b-tab>
-                </b-tabs>
-            </b-card>
-		</div>
-	</div>
+  <div class="inventario-pages" :class="{reduce: reduce.status}">
+    <Aside :reduce="reduce">
+      <template v-slot:header>
+        <b-icon icon='tools' class='h5 mb-0 mr-3'/> Inventário
+      </template>
+      <template v-slot:content>
+        <AsideContent :tab="tab"
+          @pecas="tab='Peças'"
+          @ferramentas="tab='Ferramentas'" />
+      </template>
+    </Aside>
+
+    <div class="inventario-content">
+      <TitleBar :title="tab"/>
+      <Pecas v-show="tab==='Peças'"/>
+      <Ferramentas v-show="tab==='Ferramentas'"/>
+    </div>
+  </div>
 </template>
 
 <script>
-import PageTitle from "../PageTitle.vue"
-import Pecas from './Pecas'
-import Ferramentas from './Ferramentas'
+import Aside from "../Aside.vue";
+import AsideContent from './AsideContentInventario.vue'
+import TitleBar from "../TitleBar.vue";
+import Pecas from "./Pecas";
+import Ferramentas from "./Ferramentas";
 
 export default {
-	name: "inventario-pages",
-    components: { PageTitle, Pecas, Ferramentas },
-}
+  name: "InventarioPages",
+  components: { TitleBar, Pecas, Ferramentas, Aside, AsideContent },
+  data: function() {
+    return {
+      reduce: { status: false },
+      tab: 'Peças'
+    };
+  }
+};
 </script>
 
 <style>
 .inventario-pages {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "aside content" "aside content";
 }
-.admin-pages-tabs {
-    width: 100%;
-    padding: 5px 3px;
+.inventario-content {
+  grid-area: content;
+  overflow: auto;
+  display: grid;
+  grid-template-rows: 40px 1fr;
+  grid-template-columns: 1fr;
+  grid-template-areas: "titleBar" "content";
+}
+.reduce {
+  grid-template-columns: 50px 1fr;
 }
 </style>

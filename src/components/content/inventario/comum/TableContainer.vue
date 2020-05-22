@@ -63,17 +63,19 @@ export default {
 
 <style>
 .table-container {
-    width: 900px;
+    min-width: 300px;
+    width: 100%;
 }
 .header-tabela {
-    height: 45px;
+    height: 40px;
     display: flex;
     align-items: center;
     user-select: none;
     /* border-radius: 8px; */
-    border-top: 1px solid #ccc;
+    /* border-top: 1px solid #ccc; */
     border-bottom: 1px solid #ccc;
     background: #fafafa;
+    padding: 0 10px;
 }
 .header-tabela > div {
     width: 100%;
@@ -86,10 +88,5 @@ export default {
 .header-tabela strong {
     color: #777;
     font-size: 0.9rem;
-}
-@media(max-width: 920px) {
-    .table-container {
-        width: 100%;
-    }
 }
 </style>

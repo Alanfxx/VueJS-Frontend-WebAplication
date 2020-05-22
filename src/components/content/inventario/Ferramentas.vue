@@ -72,9 +72,7 @@ export default {
 </script>
 
 <style>
-.conteudo-ferramentas {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+.tap-ferramentas {
+    grid-area: content;
 }
 </style>

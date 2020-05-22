@@ -38,16 +38,17 @@ export default {
 
 <style>
 .item-table {
+    /* min-width: 300px; */
     display: flex;
     flex-direction: column;
     border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-top: 5px;
+    border-radius: 5px;
+    margin: 5px 10px 0;
     transition: .5s ease;
-    background-color: rgba(0, 183, 255, 0.05);
+    background-color: rgba(0, 255, 128, 0.05);
 }
 .item-color {
-    background-color: rgba(0, 183, 255, 0.1);
+    background-color: rgba(0, 255, 128, 0.1);
 }
 .header-table-item {
     height: 40px;
@@ -57,13 +58,13 @@ export default {
     font-size: 1rem;
     cursor: pointer;
     user-select: none;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .header-table-item div {
     width: 100%;
 }
 .header-table-item:hover {
-    background-color: rgba(0, 183, 255, 0.15);
+    background-color: rgba(0, 255, 128, 0.15);
 }
 </style>

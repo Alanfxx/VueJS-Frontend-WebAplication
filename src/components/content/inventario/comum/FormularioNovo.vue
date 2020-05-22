@@ -75,7 +75,7 @@ export default {
 <style>
 .formulario-novo {
     width: 100%;
-    padding: 0 5px;
+    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -90,7 +90,8 @@ export default {
         align-items: unset;
     }
     .form-group-formulario-novo {
-        margin: 0;
+        margin-right: 0;
+        margin-bottom: 8px;
     }
 }
 </style>

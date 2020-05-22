@@ -6,7 +6,7 @@
             </router-link>
         </div>
         <Navbar :rota='rota'/>
-        <div class="toggle-menu-lateral" @click='visible.status = true' v-show="!visible.status">
+        <div class="toggle-menu-lateral" @click='visible.status = !visible.status'>
             <b-icon class='list-icon' icon='list'></b-icon>
         </div>
         <UserDropdown class="dropdown-visibilidade"/>
@@ -43,13 +43,14 @@ export default {
 <style>
 .app-header {
     grid-area: header;
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* background: #28a745; */
     background: #343a40;
-    border-bottom: 2px solid limegreen;
+    border-bottom: 1px solid #222;
     z-index: 5;
+    user-select: none;
 }
 .logo-container {
     width: 90px;
@@ -60,29 +61,27 @@ export default {
     margin-left: 50px;
 }
 .logo {
-    height: 40px;
+    height: 35px;
     user-select: none;
     transition: 0.2s ease;
 }
 .logo:hover {
-    height: 48px;
+    height: 40px;
     transition: 0.1s ease;
 }
 .toggle-menu-lateral {
     display: none;
     align-items: center;
     justify-content: center;
-    width: 60px;
-    height: 45px;
     background-color: #7777;
     border-radius: 8px;
     margin-right: 15px;
-    padding: 4px 0 0;
+    padding: 3px 5px 1px;
     cursor: pointer;
 }
 .toggle-menu-lateral .list-icon {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 }
 @media (max-width: 900px) {
     .toggle-menu-lateral {

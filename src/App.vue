@@ -8,14 +8,15 @@
 </template>
 
 <script>
-import Header from "./components/header/Header"
-import Content from "./components/content/Content"
-import Footer from "./components/footer/Footer"
-import Loading from "./components/Loading"
-import axios from "axios"//
-import { 
-baseApiUrl, //
-userKey } from "@/global"
+import Header from "./components/header/Header";
+import Content from "./components/content/Content";
+import Footer from "./components/footer/Footer";
+import Loading from "./components/Loading";
+import axios from "axios"; //
+import {
+    baseApiUrl, //
+    userKey
+} from "@/global";
 
 export default {
     name: "App",
@@ -24,52 +25,54 @@ export default {
         return {
             validatingToken: false,
             isMenuVisible: this.$store.state.global.isMenuVisible
-        }
+        };
     },
     methods: {
         async validateToken() {
-            this.validatingToken = true
+            this.validatingToken = true;
 
-            const json = localStorage.getItem(userKey)
-            const userData = JSON.parse(json)
-            this.$store.dispatch('adicionarUser', null)
-            this.$store.commit("setUser", null)//
+            const json = localStorage.getItem(userKey);
+            const userData = JSON.parse(json);
+            this.$store.dispatch("adicionarUser", null);
+            this.$store.commit("setUser", null); //
 
             if (!userData) {
                 this.validatingToken = false;
-                if(this.$router.currentRoute.name !== 'auth')
-                    this.$router.push({ name: "auth" })
-                return
+                if (this.$router.currentRoute.name !== "auth")
+                    this.$router.push({ name: "auth" });
+                return;
             }
 
-            const res = await axios.post(//>
+            const res = await axios.post(
+                //>
                 `${baseApiUrl}/validateToken`,
                 userData
             );
 
-            if (res.data) {//^
-                this.$store.dispatch('adicionarUser', userData)
-                this.$store.commit("setUser", userData)//>
+            if (res.data) {
+                //^
+                this.$store.dispatch("adicionarUser", userData);
+                this.$store.commit("setUser", userData); //>
             } else {
-                localStorage.removeItem(userKey)
-                if(this.$router.currentRoute.name !== 'auth')
-                    this.$router.push({ name: "auth" })
-            }//^
+                localStorage.removeItem(userKey);
+                if (this.$router.currentRoute.name !== "auth")
+                    this.$router.push({ name: "auth" });
+            } //^
 
             this.validatingToken = false;
         }
     },
     created() {
-        this.validateToken()
+        this.validateToken();
     }
-}
+};
 </script>
 
 <style>
-body {
+html,
+body{
     margin: 0;
-}
-* {
+    padding: 0;
     box-sizing: border-box;
 }
 #app {
@@ -81,7 +84,7 @@ body {
     height: 100vh;
     display: grid;
     grid-template-areas: "header" "content" "footer";
-    grid-template-rows: 60px 1fr 18px;
+    grid-template-rows: 50px 1fr 18px;
     grid-template-columns: 1fr;
 }
 #app.other {

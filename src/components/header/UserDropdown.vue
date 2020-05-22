@@ -68,13 +68,14 @@ export default {
     width: 180px;
     background-color: #fff;
     position: absolute;
-    bottom: -170%;
-    left: -15%;
+    top: 53px;
+    right: 15px;
     display: flex;
     flex-direction: column;
     padding: 10px 2px;
     border-radius: 4px;
     border: 1px solid #ccc;
+    box-shadow: 0 2px 4px 0 #2223;
 }
 .dropdown-body div{
     padding: 6px 12px;
@@ -85,7 +86,7 @@ export default {
     border-radius: 3px;
 }
 .dropdown-body div:hover{
-    background-color: rgba(0, 83, 11, 0.7);
+    background-color: rgba(0, 146, 19, 0.7);
     color: #eee;
 }
 </style>
