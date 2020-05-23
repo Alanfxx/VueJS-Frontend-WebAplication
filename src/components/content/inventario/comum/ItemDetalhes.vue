@@ -11,6 +11,7 @@
           <input
             class="input-item-detalhes"
             type="text"
+            required
             v-model="itemEditing.name"
             v-show="editing.status"
           />
@@ -21,6 +22,7 @@
           <input
             class="input-item-detalhes"
             type="text"
+            required
             v-model="itemEditing.ref"
             v-show="editing.status"
           />
@@ -31,6 +33,7 @@
           <input
             class="input-item-detalhes"
             type="number"
+            required
             v-model="itemEditing.quant"
             v-show="editing.status"
           />
@@ -81,11 +84,6 @@ export default {
       this.editing.status = true;
     },
     cancelarEdicao() {
-      // if(this.itemEditing){
-      //     Object.keys(this.itemEditing).forEach(key => {
-      //         this.item[key] = this.itemEditing[key];
-      //     });
-      // }
       this.itemEditing = {};
       this.editing.status = false;
     },
@@ -106,9 +104,6 @@ export default {
           if (value) {
             this.$emit("editar", this.itemEditing);
           } else {
-            Object.keys(this.itemEditing).forEach(key => {
-              this.item[key] = this.itemEditing[key];
-            });
             this.itemEditing = {};
           }
           this.editing.status = false;

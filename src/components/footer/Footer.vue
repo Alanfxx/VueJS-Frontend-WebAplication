@@ -18,6 +18,7 @@ export default {};
     justify-content: flex-end;
     z-index: 2;
     user-select: none;
+    background: #eee;
 }
 .app-footer span {
     margin-right: 15px;

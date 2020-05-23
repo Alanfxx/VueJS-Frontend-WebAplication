@@ -20,6 +20,7 @@ export default {
     flex-wrap: wrap;
     justify-content: space-evenly;
     padding: 0 10px;
+    background: rgba(0, 255, 21, 0.1);
 }
 .clock {
     margin-top: 50px;

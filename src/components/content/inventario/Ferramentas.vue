@@ -41,15 +41,12 @@ export default {
                 solid: true
             })
         },
-        // async saveCallback({data, cb}){
-        //     await this.save(data)
-        //     cb()
-        // },
         async reset() {
             const res = await this.$store.dispatch('loadFerramentas')
             if(res.tipo === 'erro') {
-                this.ferramentaToast(res.msg, 'danger')
+                return this.ferramentaToast(res.msg, 'danger')
             }
+            this.novo.ferramentas = false
         },
         async save (ferramenta) {
             const res = await this.$store.dispatch('saveFerramenta', ferramenta)

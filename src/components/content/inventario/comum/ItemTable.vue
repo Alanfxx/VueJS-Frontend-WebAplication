@@ -43,12 +43,16 @@ export default {
     flex-direction: column;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin: 5px 10px 0;
-    transition: .5s ease;
-    background-color: rgba(0, 255, 128, 0.05);
+    box-shadow: 0 2px #0001;
+    margin: 7px 10px 0;
+    transition: .2s ease;
+    background-color: #fff;
+}
+.item-table:hover {
+    box-shadow: 0 3px 5px 1px #0002;
 }
 .item-color {
-    background-color: rgba(0, 255, 128, 0.1);
+    background-color: #f8f8f8;
 }
 .header-table-item {
     height: 40px;
@@ -58,13 +62,14 @@ export default {
     font-size: 1rem;
     cursor: pointer;
     user-select: none;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-radius: 5px;
+    /* border-top-left-radius: 5px; */
+    /* border-top-right-radius: 5px; */
 }
 .header-table-item div {
     width: 100%;
 }
-.header-table-item:hover {
-    background-color: rgba(0, 255, 128, 0.15);
-}
+/* .header-table-item:hover {
+    background-color: rgb(228, 255, 235);
+} */
 </style>

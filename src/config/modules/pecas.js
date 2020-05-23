@@ -46,13 +46,34 @@ export default {
         },
         async savePeca({rootState}, peca) {
             rootState.global.processing.status = true
+
+            if(!peca.name) {
+                rootState.global.processing.status = false
+                return {tipo: 'erro' , msg: "Nome não informado"}
+            }
+            if(!peca.ref) {
+                rootState.global.processing.status = false
+                return {tipo: 'erro' , msg: "Referência não informada"}
+            }
+            if(!peca.quant) {
+                rootState.global.processing.status = false
+                return {tipo: 'erro' , msg: "Quantidade não informada"}
+            }
             peca.quant = parseInt(peca.quant)
+            if(typeof peca.quant !== "number") {
+                rootState.global.processing.status = false
+                return {tipo: 'erro' , msg: "Quantidade inválida"}
+            }
+            if(peca.quant < 0) {
+                rootState.global.processing.status = false
+                return {tipo: 'erro' , msg: "Quantidade não pode ser negativa"}
+            }
 
             const method = peca.id ? 'put' : 'post'
             const id = peca.id ? `/${peca.id}` : ''
             return await axios[method](`${baseApiUrl}/pecas${id}`, peca).then(() => {
                     rootState.global.processing.status = false
-                    return {tipo: 'sucesso' , msg: 'Dados salvos com sucesso'}
+                    return {tipo: 'sucesso' , msg: 'Dados salvos'}
                 }).catch( err => {
                     rootState.global.processing.status = false
                     return {tipo: 'erro' , msg: err.response.data}
@@ -63,7 +84,7 @@ export default {
             const id = peca.id
             return await axios.delete(`${baseApiUrl}/pecas/${id}`).then(() => {
                     rootState.global.processing.status = false
-                    return {tipo: 'sucesso' , msg: 'Excluído com sucesso'}
+                    return {tipo: 'sucesso' , msg: 'Dados excluídos'}
                 }).catch( err => {
                     rootState.global.processing.status = false
                     return {tipo: 'erro' , msg: err.response.data}

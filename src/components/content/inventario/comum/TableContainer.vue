@@ -67,7 +67,7 @@ export default {
     width: 100%;
 }
 .header-tabela {
-    height: 40px;
+    height: 30px;
     display: flex;
     align-items: center;
     user-select: none;

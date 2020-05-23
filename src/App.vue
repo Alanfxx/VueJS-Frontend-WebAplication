@@ -85,6 +85,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #111;
+  background-image: url(./assets/grid-light.png);
   height: 100vh;
   display: grid;
   grid-template-areas: "header" "content" "footer";

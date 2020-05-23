@@ -29,8 +29,8 @@ export default {
 .title-bar {
   grid-area: titleBar;
   padding: 0 30px;
-  /* background-color: rgb(238, 255, 238); */
-  border-bottom: 1px solid rgb(203, 221, 203);
+  background-color: #eee;
+  border-bottom: 1px solid #ccc;
   display: flex;
   justify-content: space-between;
   align-items: center;

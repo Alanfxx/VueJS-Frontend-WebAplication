@@ -47,7 +47,7 @@ export default {
   display: flex;
   border-bottom: 1px solid #ccc;
   color: #333;
-  background: #0001;
+  background: #eee;
 }
 .aside-title-bar .aside-title {
   flex: 1;

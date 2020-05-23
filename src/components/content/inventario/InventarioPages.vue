@@ -2,7 +2,7 @@
   <div class="inventario-pages" :class="{reduce: reduce.status}">
     <Aside :reduce="reduce">
       <template v-slot:header>
-        <b-icon icon='tools' class='h5 mb-0 mr-3'/> Inventário
+        <b-icon icon='tools' class='h5 mb-0 ml-2 mr-3'/> Inventário
       </template>
       <template v-slot:content>
         <AsideContent :tab="tab"

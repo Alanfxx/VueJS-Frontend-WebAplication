@@ -44,13 +44,29 @@ export default {
         },
         async saveFerramenta({rootState}, ferramenta) {
             rootState.global.processing.status = true
+            if(!ferramenta.name) {
+                rootState.global.processing.status = false
+                return {tipo: 'erro' , msg: "Nome não informado"}
+            }
+            if(!ferramenta.quant) {
+                rootState.global.processing.status = false
+                return {tipo: 'erro' , msg: "Quantidade não informada"}
+            }
             ferramenta.quant = parseInt(ferramenta.quant)
+            if(typeof ferramenta.quant !== "number") {
+                rootState.global.processing.status = false
+                return {tipo: 'erro' , msg: "Quantidade inválida"}
+            }
+            if(ferramenta.quant < 0) {
+                rootState.global.processing.status = false
+                return {tipo: 'erro' , msg: "Quantidade não pode ser negativa"}
+            }
 
             const method = ferramenta.id ? 'put' : 'post'
             const id = ferramenta.id ? `/${ferramenta.id}` : ''
             return await axios[method](`${baseApiUrl}/ferramentas${id}`, ferramenta).then(() => {
                 rootState.global.processing.status = false
-                return {tipo: 'sucesso' , msg: 'Dados salvos com sucesso'}
+                return {tipo: 'sucesso' , msg: 'Dados salvos'}
             }).catch( err => {
                 rootState.global.processing.status = false
                 return {tipo: 'erro' , msg: err.response.data}
@@ -61,7 +77,7 @@ export default {
             const id = ferramenta.id
             return await axios.delete(`${baseApiUrl}/ferramentas/${id}`).then(() => {
                 rootState.global.processing.status = false
-                return {tipo: 'sucesso' , msg: 'Excluído com sucesso'}
+                return {tipo: 'sucesso' , msg: 'Dados excluídos'}
             }).catch( err => {
                 rootState.global.processing.status = false
                 return {tipo: 'erro' , msg: err.response.data}

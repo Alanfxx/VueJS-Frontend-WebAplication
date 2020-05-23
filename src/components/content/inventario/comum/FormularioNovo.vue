@@ -33,7 +33,7 @@
     <b-form-group v-show="processing.status">
       <b-spinner type="grow" variant="info"></b-spinner>
     </b-form-group>
-    <b-form-group v-show="!processing.status">
+    <b-form-group v-show="!processing.status" style="min-width:150px;">
       <b-button size="sm" variant="success" @click="salvar">Salvar</b-button>
       <b-button size="sm" class="ml-2" @click="cancelar">Cancelar</b-button>
     </b-form-group>

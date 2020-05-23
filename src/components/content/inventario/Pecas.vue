@@ -41,15 +41,12 @@ export default {
                 solid: true
             })
         },
-        // async saveCallback({data, cb}){
-        //     await this.save(data)
-        //     cb()
-        // },
         async reset() {
             const res = await this.$store.dispatch('loadPecas')
             if(res.tipo === 'erro') {
-                this.pecaToast(res.msg, 'danger')
+                return this.pecaToast(res.msg, 'danger')
             }
+            this.novo.pecas = false
         },
         async save (peca) {
             const res = await this.$store.dispatch('savePeca', peca)
