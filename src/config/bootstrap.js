@@ -15,12 +15,12 @@ import {
     // TooltipPlugin,
     SpinnerPlugin,
     // NavbarPlugin,
-    CardPlugin,
-    TabsPlugin,
     // TablePlugin,
     // LayoutPlugin,
     FormGroupPlugin,
-    ModalPlugin
+    ModalPlugin,
+    InputGroupPlugin,
+    FormSelectPlugin
 } from 'bootstrap-vue'
 
 Vue.use(ButtonPlugin)
@@ -32,9 +32,9 @@ Vue.use(ToastPlugin)
 // Vue.use(TooltipPlugin)
 Vue.use(SpinnerPlugin)
 // Vue.use(NavbarPlugin)
-Vue.use(CardPlugin)
-Vue.use(TabsPlugin)
 // Vue.use(TablePlugin)
 // Vue.use(LayoutPlugin)
 Vue.use(FormGroupPlugin)
 Vue.use(ModalPlugin)
+Vue.use(InputGroupPlugin)
+Vue.use(FormSelectPlugin)

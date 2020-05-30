@@ -4,7 +4,7 @@
         <p class="time">{{ time }}</p>
         <p class="text">Em construção..</p><br>
         <p class="text">Ultima atualização em: </p>
-        <p class="text">23/05/2020 às 14:40</p>
+        <p class="text">29/05/2020 às 15:33</p>
     </div>
 </template>
 
@@ -46,19 +46,14 @@ export default {
 .time {
     letter-spacing: 0.05em;
     font-size: 75px;
-    padding: 0;
-    margin: 0;
 }
 .date {
     letter-spacing: 0.1em;
     font-size: 24px;
-    margin: 0;
 }
 .text {
     letter-spacing: 0.1em;
     font-size: .9rem;
-    padding: 0;
-    margin: 0;
 }
 @media (max-width: 900px) {
     .time {

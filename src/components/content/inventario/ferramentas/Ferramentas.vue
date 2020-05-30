@@ -5,27 +5,24 @@
             @salvar='save'/>
             <!-- Tabela dos itens -->
         <div class="conteudo-ferramentas">
-            <TableContainer>
-                <ItemTable v-for="(item, i) in ferramentas" :key="i" :item="item" :index="i"
-                    @editar='save' @remove='remove(item)'/>
-            </TableContainer>
+            <ItemTable v-for="(item, i) in ferramentas" :key="i" :item="item" :index="i"
+                @editar='save' @remove='remove(item)'/>
         </div>
     </div>
 </template>
 
 <script>
-import FormularioNovo from './comum/FormularioNovo'
-import TableContainer from './comum/TableContainer'
-import ItemTable from './comum/ItemTable'
+import FormularioNovo from './FormularioNovo'
+import ItemTable from './ItemTable'
 
 
 export default {
     name: 'TapFerramentas',
-    components: { TableContainer, ItemTable, FormularioNovo },
-    props: ['novo'],
+    components: { ItemTable, FormularioNovo },
     data: function() {
         return {
-            tabAtual: 'ferramentas'
+            tabAtual: 'ferramentas',
+            novo: {pecas: false, ferramentas: false}
         }
     },
     computed: {
@@ -71,7 +68,6 @@ export default {
 </script>
 
 <style>
-.tap-ferramentas {
-    grid-area: content;
-}
+/* .tap-ferramentas {
+} */
 </style>

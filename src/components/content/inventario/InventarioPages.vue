@@ -12,9 +12,8 @@
     </Aside>
 
     <div class="inventario-content">
-      <TitleBar :title="tab" :novo="novo"/>
-      <Pecas v-show="tab==='Peças'" :novo="novo"/>
-      <Ferramentas v-show="tab==='Ferramentas'" :novo="novo"/>
+      <Pecas v-show="tab==='Peças'"/>
+      <Ferramentas v-show="tab==='Ferramentas'"/>
     </div>
   </div>
 </template>
@@ -22,17 +21,15 @@
 <script>
 import Aside from "../Aside.vue";
 import AsideContent from './AsideContentInventario.vue'
-import TitleBar from "../TitleBar.vue";
-import Pecas from "./Pecas";
-import Ferramentas from "./Ferramentas";
+import Pecas from "./pecas/Pecas";
+import Ferramentas from "./ferramentas/Ferramentas";
 
 export default {
   name: "InventarioPages",
-  components: { TitleBar, Pecas, Ferramentas, Aside, AsideContent },
+  components: { Pecas, Ferramentas, Aside, AsideContent },
   data: function() {
     return {
       reduce: { status: false },
-      novo: {pecas: false, ferramentas: false},
       tab: 'Peças'
     };
   }
@@ -50,10 +47,10 @@ export default {
 .inventario-content {
   grid-area: content;
   overflow: auto;
-  display: grid;
+  /* display: grid;
   grid-template-rows: 40px 1fr;
   grid-template-columns: 1fr;
-  grid-template-areas: "titleBar" "content";
+  grid-template-areas: "titleBar" "content"; */
 }
 .reduce {
   grid-template-columns: 50px 1fr;

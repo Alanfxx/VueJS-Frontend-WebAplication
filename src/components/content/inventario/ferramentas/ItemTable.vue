@@ -2,7 +2,6 @@
     <div class="item-table" :class="{'item-color': index%2==0}">
         <div class="header-table-item" @click="toggleDetalhes">
             <div v-show="!mostrarDetalhes">{{item.name}}</div>
-            <div v-show="!mostrarDetalhes && item.ref">{{item.ref}}</div>
             <div v-show="!mostrarDetalhes">{{item.quant}}</div>
             <b-icon style="width: 30px; height: 30px; color: #777;" icon='chevron-double-up' v-show="mostrarDetalhes"></b-icon>
         </div>
@@ -63,8 +62,6 @@ export default {
     cursor: pointer;
     user-select: none;
     border-radius: 5px;
-    /* border-top-left-radius: 5px; */
-    /* border-top-right-radius: 5px; */
 }
 .header-table-item div {
     width: 100%;

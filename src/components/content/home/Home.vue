@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
     <Clock class="clock" />
-    <img src="@/assets/web-contrucao.svg" alt="Logo" class="imagem-home" />
+    <img src="@/assets/imagem-home.png" class="imagem-home" alt="Imagem eletronicos"/>
   </div>
 </template>
 
@@ -15,18 +15,22 @@ export default {
 
 <style>
 .home-page {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    padding: 0 10px;
-    background: rgba(0, 255, 21, 0.1);
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+  justify-content: space-evenly;
+  padding: 10px;
+  background: rgba(0, 255, 21, 0.1);
 }
 .clock {
-    margin-top: 50px;
+  padding-top: 50px;
+  max-height: 100%;
 }
-.imagem-home {
-    max-width: 100%;
-    max-height: 500px;
+img.imagem-home {
+  position: relative;
+  max-width: 100%;
+  max-height: 400px;
+  padding-top: 20px;
 }
 </style>

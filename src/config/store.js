@@ -5,11 +5,13 @@ import user from './modules/user'
 import global from './modules/global'
 import pecas from './modules/pecas'
 import ferramentas from './modules/ferramentas'
+import aparelhos from './modules/aparelhos'
+import clientes from './modules/clientes'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    modules: { user, global, pecas, ferramentas }
+    modules: { user, global, pecas, ferramentas, aparelhos, clientes }
 })
 //this.$store.state.user.name
 

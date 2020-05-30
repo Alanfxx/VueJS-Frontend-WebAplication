@@ -1,7 +1,7 @@
 <template>
   <div class="item-detalhes" v-show="mostrarDetalhes">
     <div class="imagem-item-detalhes">
-      <img src="@/assets/semImagem.png" alt="Sem imagem" />
+      <img src="@/assets/semImagem.png" alt="Sem imagem"/>
     </div>
     <div class="conteudo-item-detalhes">
       <div class="campos-item-detalhes">
@@ -14,19 +14,10 @@
             required
             v-model="itemEditing.name"
             v-show="editing.status"
+            disabled
           />
         </div>
-        <div v-if="item.ref !== undefined">
-          <span class="chaves-item-detalhes">Referência:</span>
-          <span v-show="!editing.status">{{item.ref}}</span>
-          <input
-            class="input-item-detalhes"
-            type="text"
-            required
-            v-model="itemEditing.ref"
-            v-show="editing.status"
-          />
-        </div>
+        
         <div>
           <span class="chaves-item-detalhes">Quantidade:</span>
           <span v-show="!editing.status">{{item.quant}}</span>
@@ -139,7 +130,7 @@ export default {
   flex-wrap: wrap;
 }
 .imagem-item-detalhes {
-  padding: 2px 20px;
+  /* padding: 2px 20px; */
   width: 300px;
   display: flex;
   align-items: center;

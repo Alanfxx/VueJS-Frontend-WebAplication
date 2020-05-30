@@ -10,23 +10,43 @@
     </Aside>
 
     <div class="aparelhos-content">
-      <TitleBar title="Aparelhos"/>
-      <!--  -->
+      <!-- Todos os aparelhos -->
+      <div class="aparelhos-group" v-show="page === 'aparelhos'">
+        <Aparelho v-for="item in aparelhos" :key="item.tipo" :aparelho="item"
+          @detalhe="detalhe(item)"/>
+      </div>
+      <!-- Detalhes -->
+      <DetalheAparelho :aparelho="itemAtual" v-show="page === 'detalhe'"
+        @fechar="page = 'aparelhos'"/>
     </div>
   </div>
 </template>
 
 <script>
-import TitleBar from "../TitleBar.vue";
 import Aside from "../Aside.vue";
+import Aparelho from "./Aparelho"
+import DetalheAparelho from "./detalhe/DetalheAparelho"
 
 export default {
   name: "AparelhosPages",
-  components: { TitleBar, Aside },
+  components: { Aside, Aparelho, DetalheAparelho },
   data: function() {
     return {
-      reduce: { status: false }
+      reduce: { status: false },
+      page: 'aparelhos',
+      itemAtual: {}
     };
+  },
+  methods: {
+    detalhe(item) {
+      this.page = 'detalhe'
+      this.itemAtual = { ...item }
+    }
+  },
+  computed: {
+    aparelhos() {
+      return this.$store.getters.aparelhosList
+    }
   }
 };
 </script>
@@ -42,10 +62,12 @@ export default {
 .aparelhos-content {
   grid-area: content;
   overflow: auto;
-  display: grid;
-  grid-template-rows: 40px 1fr;
-  grid-template-columns: 1fr;
-  grid-template-areas: "titleBar" "content";
+}
+.aparelhos-group {
+  height: max-content;
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; */
 }
 .reduce {
   grid-template-columns: 50px 1fr;

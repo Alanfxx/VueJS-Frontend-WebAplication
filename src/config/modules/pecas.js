@@ -4,38 +4,50 @@ import {baseApiUrl} from '@/global'
 export default {
     state: {
         pecas: [],
+        pecasFiltradas: []
     },
     mutations: {
         setPecas(state, pecas) {
             state.pecas = pecas
         },
-
-        //{key: '?', order: 'cresc' || 'decr'}
-        pecasSortBy(state, {key, order}) {
-            if(!order || order === 'cresc') {
-                if(isNaN(state.pecas[Object.keys(state.pecas)[0]][key])) {
-                    state.pecas.sort((a, b) => a[key].toUpperCase() > b[key].toUpperCase() ? 1 
-                        : b[key].toUpperCase() > a[key].toUpperCase() ? -1 : 0)
-                } else {
-                    state.pecas.sort((a, b) => a[key] > b[key] ? 1 
-                        : b[key] > a[key] ? -1 : 0)
-                }
-            } else {
-                if(isNaN(state.pecas[Object.keys(state.pecas)[0]][key])) {
-                    state.pecas.sort((a, b) => a[key].toUpperCase() < b[key].toUpperCase() ? 1 
-                        : b[key].toUpperCase() < a[key].toUpperCase() ? -1 : 0)
-                } else {
-                    state.pecas.sort((a, b) => a[key] < b[key] ? 1 
-                        : b[key] < a[key] ? -1 : 0)
-                }
-            }
+        setPecasFiltradas(state, pecas) {
+            state.pecasFiltradas = pecas
         }
     },
     actions: {
+        // { dispatch, commit, state }
+        //{array: '?', key: '?', order: 'cresc' || 'decr'}
+        arraySortBy({commit, state}, {tipo, key, order}) {
+            let arrayNew = [ ...state.pecas ]
+            if(!order || order === 'cresc') {
+                if(isNaN(arrayNew[Object.keys(arrayNew)[0]][key])) {
+                    arrayNew.sort((a, b) => a[key].toUpperCase() > b[key].toUpperCase() ? 1 
+                        : b[key].toUpperCase() > a[key].toUpperCase() ? -1 : 0)
+                } else {
+                    arrayNew.sort((a, b) => a[key] > b[key] ? 1 
+                        : b[key] > a[key] ? -1 : 0)
+                }
+            } else {
+                if(isNaN(arrayNew[Object.keys(arrayNew)[0]][key])) {
+                    arrayNew.sort((a, b) => a[key].toUpperCase() < b[key].toUpperCase() ? 1 
+                        : b[key].toUpperCase() < a[key].toUpperCase() ? -1 : 0)
+                } else {
+                    arrayNew.sort((a, b) => a[key] < b[key] ? 1 
+                        : b[key] < a[key] ? -1 : 0)
+                }
+            }
+            if(tipo === 'Todos') {
+                commit('setPecasFiltradas', arrayNew)
+            } else {
+                let filtre = arrayNew.filter(item => item.name == tipo)
+                commit('setPecasFiltradas', filtre)
+            }
+        },
         async loadPecas({commit, rootState}) {
             rootState.global.processing.status = true
             return await axios.get(`${baseApiUrl}/pecas`).then(res => {
                 commit('setPecas', res.data)
+                commit('setPecasFiltradas', res.data)
                 rootState.global.processing.status = false
                 return {tipo: 'sucesso' , msg: 'Operação realizada com sucesso'}
             })
@@ -94,6 +106,9 @@ export default {
     getters: {
         pecasList(state) {
             return state.pecas
+        },
+        pecasFiltradas(state) {
+            return state.pecasFiltradas
         }
     } 
 }

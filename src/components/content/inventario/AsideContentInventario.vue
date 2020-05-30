@@ -1,9 +1,11 @@
 <template>
   <div class="aside-content-inventario">
-    <div @click="$emit('pecas')" :class="{select: tab==='Peças'}">
+    <div class='aside-item'
+      @click="$emit('pecas')" :class="{select: tab==='Peças'}">
       <b-icon icon="puzzle" class="h4 mb-0 mr-3" />Peças
     </div>
-    <div @click="$emit('ferramentas')" :class="{select: tab==='Ferramentas'}">
+    <div class='aside-item'
+      @click="$emit('ferramentas')" :class="{select: tab==='Ferramentas'}">
       <b-icon icon="screwdriver" class="h4 mb-0 mr-3" />Ferramentas
     </div>
   </div>
@@ -12,12 +14,12 @@
 <script>
 export default {
   name: "AsideContentInventario",
-  props: ['tab']
+  props: ["tab"]
 };
 </script>
 
 <style>
-.aside-content-inventario div {
+.aside-item {
   display: flex;
   align-items: center;
   height: 50px;
@@ -25,10 +27,11 @@ export default {
   cursor: pointer;
   padding: 0 13px;
 }
-.aside-content-inventario div:hover {
+.aside-item:hover {
   background: #0002;
 }
 .select {
   background: #0001;
+  color: darkgreen;
 }
 </style>
