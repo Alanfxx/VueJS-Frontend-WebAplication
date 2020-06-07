@@ -11,7 +11,7 @@ export default {};
 <style>
 .app-footer {
     grid-area: footer;
-    border-top: 1px solid rgba(0, 110, 0, 0.5);
+    border-top: 1px solid #ddd;
     font-size: 0.6rem;
     display: flex;
     align-items: center;

@@ -1,51 +1,54 @@
 <template>
-  <div class="clientes-pages" :class="{reduce: reduce.status}">
-    <Aside :reduce="reduce">
+  <div class="clientes-pages" :class="{reduce: ctrlGlobal.reduce}">
+    <Aside>
       <template v-slot:header>
         <b-icon icon='people-fill' class='h5 mb-0 mr-3'/> Clientes
       </template>
       <template v-slot:content>
-        <!--  -->
+        <AsideContent />
       </template>
     </Aside>
 
     <div class="clientes-content">
-      <div class="clientes-group" v-show="page === 'clientes'">
-        <Cliente v-for="item in clientes" :key="item.name" :cliente="item"
-          @detalhe="detalhe(item)"/>
+      <NovoCliente v-show="ctrlCliente.novo"/>
+
+      <div class="clientes-group" v-show="ctrlCliente.tab === 'todos'">
+        <Cliente v-for="(item, i) in clientes" :key="i" :cliente="item" />
       </div>
       <!-- Detalhes -->
-      <DetalheCliente :cliente="itemAtual" v-show="page === 'detalhe'"
-        @fechar="page = 'clientes'"/>
+      <DetalheCliente v-show="ctrlCliente.tab === 'detalhe'" />
     </div>
   </div>
 </template>
 
 <script>
-import Aside from "../Aside.vue";
+import Aside from "./Aside.vue";
+import AsideContent from './AsideContentClientes'
 import Cliente from './Cliente.vue'
+import NovoCliente from './NovoCliente'
 import DetalheCliente from './detalhe/DetalheCliente.vue'
 
 export default {
   name: "clientes-pages",
-  components: { Aside, Cliente, DetalheCliente },
+  components: { Aside, AsideContent, Cliente, NovoCliente, DetalheCliente },
   data: function() {
     return {
-      reduce: { status: false },
-      page: 'clientes',
-      itemAtual: {}
-    };
-  },
-  methods: {
-    detalhe(item) {
-      this.page = 'detalhe'
-      this.itemAtual = { ...item }
+      ctrlCliente: this.$store.state.clientes.ctrlCliente,
+      ctrlGlobal: this.$store.state.global.ctrlGlobal
     }
   },
   computed: {
     clientes() {
-      return this.$store.getters.clientesList
-    }
+      if(this.ctrlCliente.busca) {
+        const filtro = this.ctrlCliente.busca.toUpperCase().trim()
+        return this.$store.getters.clientesList.filter( item => 
+          item.nome.toUpperCase().includes(filtro) || 
+          item.apelido.toUpperCase().includes(filtro)
+        )
+      } else {
+        return this.$store.getters.clientesList
+      }
+    },
   }
 };
 </script>

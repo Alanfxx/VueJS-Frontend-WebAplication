@@ -6,7 +6,7 @@
       label-align="left"
       label-size="sm"
     >
-      <b-form-select class="campo-nome" v-model="item.name" :options="options">
+      <b-form-select class="campo-nome-pecas" v-model="item.name" :options="options">
         <!-- <template v-slot:first>
           <b-form-select-option :value="null" disabled>-- Selecione um tipo --</b-form-select-option>
         </template> -->
@@ -33,10 +33,10 @@
         placeholder="Informe a quantidade.."
       />
     </b-form-group>
-    <b-form-group v-show="processing.status">
+    <b-form-group v-show="ctrlGlobal.processing">
       <b-spinner type="grow" variant="info"></b-spinner>
     </b-form-group>
-    <b-form-group v-show="!processing.status" style="min-width:150px;">
+    <b-form-group v-show="!ctrlGlobal.processing" style="min-width:150px;">
       <b-button size="sm" variant="success" @click="salvar">Salvar</b-button>
       <b-button size="sm" class="ml-2" @click="cancelar">Cancelar</b-button>
     </b-form-group>
@@ -46,10 +46,10 @@
 <script>
 export default {
   name: "FormularioNovo",
-  props: ["tabAtual", "novo"],
+  props: ["novo"],
   data: function() {
     return {
-      processing: this.$store.state.global.processing,
+      ctrlGlobal: this.$store.state.global.ctrlGlobal,
       item: {},
       options: [
         { value: null, text: 'Selecione um tipo', disabled: true },
@@ -67,11 +67,10 @@ export default {
     novo: {
       deep: true,
       handler: function() {
-        if (this.novo.pecas || this.novo.ferramentas) {
+        if (this.novo.status) {
           this.item = {name: null};
           setTimeout(() => {
-            document.querySelectorAll(".campo-nome")[0].focus()
-            document.querySelectorAll(".campo-nome")[1].focus()
+            document.querySelector(".campo-nome-pecas").focus()
           }, 100)
         }
       }
@@ -79,14 +78,14 @@ export default {
   },
   computed: {
     mostrarFormulario() {
-      if (this.novo.pecas) return true
+      if (this.novo.status) return true
       return false;
     }
   },
   methods: {
     cancelar() {
       this.item = {};
-      if(this.novo.pecas) this.novo.pecas = false
+      this.novo.status = false
     },
     salvar() {
       this.$emit("salvar", this.item)

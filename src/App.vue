@@ -1,6 +1,6 @@
 <template>
-  <div id="app" :class="{other: !isMenuVisible.status}">
-    <Header v-if="isMenuVisible.status" />
+  <div id="app" :class="{other: !ctrlGlobal.isMenuVisible}">
+    <Header v-if="ctrlGlobal.isMenuVisible" />
     <Loading v-if="validatingToken" />
     <Content v-else />
     <Footer />
@@ -21,7 +21,7 @@ export default {
   data: function() {
     return {
       validatingToken: false,
-      isMenuVisible: this.$store.state.global.isMenuVisible
+      ctrlGlobal: this.$store.state.global.ctrlGlobal
     };
   },
   methods: {
@@ -87,6 +87,7 @@ body {
   text-align: center;
   color: #111;
   background-image: url(./assets/grid-light.png);
+  /* background: rgba(237,242,247); */
   height: 100vh;
   display: grid;
   grid-template-areas: "header" "content" "footer";

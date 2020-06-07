@@ -1,51 +1,73 @@
 <template>
-  <div class="aparelhos-pages" :class="{reduce: reduce.status}">
-    <Aside :reduce="reduce">
+  <div class="aparelhos-pages" :class="{reduce: ctrlGlobal.reduce}">
+    <Aside>
       <template v-slot:header>
         <b-icon icon='plug' class='h5 mb-0 mr-3'/> Aparelhos
       </template>
       <template v-slot:content>
-        <!--  -->
+        <AsideContentAparelhos />
       </template>
     </Aside>
 
     <div class="aparelhos-content">
+      <NovoAparelho v-show="ctrlAparelho.novo" />
       <!-- Todos os aparelhos -->
-      <div class="aparelhos-group" v-show="page === 'aparelhos'">
-        <Aparelho v-for="item in aparelhos" :key="item.tipo" :aparelho="item"
-          @detalhe="detalhe(item)"/>
+      <div class="aparelhos-group" v-show="ctrlAparelho.tab === 'todos'">
+        <Aparelho v-for="(item, i) in aparelhos" :key="i" :aparelho="item" />
+      </div>
+      <div class="aparelhos-group" v-show="ctrlAparelho.tab === 'pendentes'">
+        <Aparelho v-for="(item, i) in aparelhosPendentes" :key="i" :aparelho="item" />
+      </div>
+      <div class="aparelhos-group" v-show="ctrlAparelho.tab === 'consertados'">
+        <Aparelho v-for="(item, i) in aparelhosConsertados" :key="i" :aparelho="item" />
+      </div>
+      <div class="aparelhos-group" v-show="ctrlAparelho.tab === 'sem conserto'">
+        <Aparelho v-for="(item, i) in aparelhosSemConserto" :key="i" :aparelho="item" />
       </div>
       <!-- Detalhes -->
-      <DetalheAparelho :aparelho="itemAtual" v-show="page === 'detalhe'"
-        @fechar="page = 'aparelhos'"/>
+      <DetalheAparelho v-show="ctrlAparelho.tab === 'detalhe'"/>
     </div>
   </div>
 </template>
 
 <script>
-import Aside from "../Aside.vue";
+import Aside from "./Aside"
+import NovoAparelho from './NovoAparelho'
 import Aparelho from "./Aparelho"
 import DetalheAparelho from "./detalhe/DetalheAparelho"
+import AsideContentAparelhos from "./AsideContentAparelhos"
 
 export default {
   name: "AparelhosPages",
-  components: { Aside, Aparelho, DetalheAparelho },
+  components: { Aside, NovoAparelho, Aparelho, DetalheAparelho, AsideContentAparelhos },
   data: function() {
     return {
-      reduce: { status: false },
-      page: 'aparelhos',
-      itemAtual: {}
-    };
-  },
-  methods: {
-    detalhe(item) {
-      this.page = 'detalhe'
-      this.itemAtual = { ...item }
+      ctrlAparelho: this.$store.state.aparelhos.ctrlAparelho,
+      ctrlGlobal: this.$store.state.global.ctrlGlobal
     }
   },
   computed: {
     aparelhos() {
-      return this.$store.getters.aparelhosList
+      if(this.ctrlAparelho.busca) {
+        const filtro = this.ctrlAparelho.busca.toUpperCase().trim()
+        return this.$store.getters.aparelhosList.filter( item => 
+          item.tipo.toUpperCase().includes(filtro) || 
+          item.marca.toUpperCase().includes(filtro) ||
+          item.modelo.toUpperCase().includes(filtro) ||
+          item.descricao.toUpperCase().includes(filtro)
+        )
+      } else {
+        return this.$store.getters.aparelhosList
+      }
+    },
+    aparelhosPendentes() {
+      return this.aparelhos.filter(item => item.estado === 'Pendente')
+    },
+    aparelhosConsertados() {
+      return this.aparelhos.filter(item => item.estado === 'Consertado')
+    },
+    aparelhosSemConserto() {
+      return this.aparelhos.filter(item => item.estado === 'Sem conserto')
     }
   }
 };
@@ -67,7 +89,6 @@ export default {
   height: max-content;
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: center; */
 }
 .reduce {
   grid-template-columns: 50px 1fr;

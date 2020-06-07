@@ -1,16 +1,19 @@
 <template>
   <div class="detalhe-aparelho">
-    <div class="imagem-detalhe-aparelho" v-if="aparelho.tipo">
-      <img :src="require(`@/assets/aparelhos/${aparelho.tipo}.png`)" alt="Imagem do aparelho"/>
+    <div class="imagem-detalhe-aparelho" v-if="ctrlAparelho.itemAtual.tipo">
+      <img :src="require(`@/assets/aparelhos/${ctrlAparelho.itemAtual.tipo}.png`)" alt="Imagem do aparelho"/>
     </div>
     <div class="content-detalhe-aparelho">
-      <Campos :aparelho='aparelho'/>
-      <b-icon icon='x-circle-fill' class="fechar" @click="$emit('fechar')"></b-icon>
-      <div class="opcoes-detalhe-aparelho">
-        <a href='#' class='ml-5'>Excluir</a>
+      <Campos />
+      <div class="opcoes-detalhe-aparelho" v-show="!ctrlGlobal.processing">
+        <a href='#' class='ml-5' @click="confirmExclusao">Excluir</a>
         <b-button variant='warning' class='mr-5 px-3 py-1'>Editar</b-button>
       </div>
+      <div class="opcoes-detalhe-aparelho" v-show="ctrlGlobal.processing">
+        <b-spinner class='mx-5' type="grow" variant="info"></b-spinner>
+      </div>
     </div>
+    <b-icon icon='x-circle-fill' class="fechar" @click="ctrlAparelho.tab='todos'"></b-icon>
   </div>
 </template>
 
@@ -19,7 +22,50 @@ import Campos from './Campos'
 export default {
   name: "DetalhesAparelho",
   components: { Campos },
-  props: ["aparelho"]
+  data: function() {
+    return {
+      ctrlGlobal: this.$store.state.global.ctrlGlobal,
+      ctrlAparelho: this.$store.state.aparelhos.ctrlAparelho
+    }
+  },
+  methods: {
+    AparelhoToast(msg, variant) {
+      this.$bvToast.toast(msg || "Sem mensagem", {
+        title: "Aparelhos",
+        variant: variant,
+        solid: true
+      });
+    },
+    async removeAparelho() {
+      const res = await this.$store.dispatch("removeAparelho", this.ctrlAparelho.itemAtual);
+      if (res.tipo === "sucesso") {
+        this.AparelhoToast(res.msg, "success")
+        this.$store.dispatch("loadAparelhos")
+        this.ctrlAparelho.tab = 'todos'
+      } else {
+        this.AparelhoToast(res.msg, "danger")
+      }
+    },
+    confirmExclusao() {
+      this.$bvModal
+        .msgBoxConfirm("Confirma a exclusão?", {
+          // title: 'Please Confirm',
+          size: "sm",
+          buttonSize: "sm",
+          okVariant: "danger",
+          okTitle: "Sim",
+          cancelTitle: "Não",
+          footerClass: "p-2",
+          hideHeaderClose: false,
+          centered: true
+        })
+        .then(value => {
+          if (value) {
+            this.removeAparelho()
+          }
+        });
+    }
+  }
 };
 </script>
 
@@ -28,6 +74,7 @@ export default {
   grid-area: content;
   max-width: 1000px;
   height: max-content;
+  position: relative;
   display: grid;
   grid-template-columns: 2fr 3fr;
   grid-template-rows: 1fr;
@@ -53,23 +100,22 @@ export default {
 }
 .content-detalhe-aparelho {
   grid-area: content;
-  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-align: left;
   padding: 10px 10px 10px 20px;
 }
-.content-detalhe-aparelho .fechar:hover {
+.detalhe-aparelho .fechar:hover {
   color: #000a;
   width: 30px;
   height: 30px;
   transition: .1s ease;
 }
-.content-detalhe-aparelho .fechar {
+.detalhe-aparelho .fechar {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 10px;
+  right: 10px;
   width: 26px;
   height: 26px;
   cursor: pointer;

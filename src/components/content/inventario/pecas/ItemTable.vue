@@ -1,6 +1,6 @@
 <template>
   <div class="item-table-pecas" 
-    :class="{'item-color': index%2==0, 'large': mostrarDetalhes}">
+    :class="{'item-color-pecas': index%2==0, 'large': mostrarDetalhes}">
     <div>
       <div class="header-item1" v-show="!mostrarDetalhes">
         <img :src="require(`@/assets/pecas/${item.name}.png`)" alt="Imagem da peça" />
@@ -59,25 +59,23 @@ export default {
   width: 290px;
   display: flex;
   flex-direction: column;
-  border: 1px solid #ccc;
+  border: 2px solid transparent;
   border-radius: 5px;
-  /* box-shadow: 0 2px #0001; */
+  box-shadow: 2px 2px 2px #0002;
   margin: 0 auto;
-  transition: 0.2s ease;
-  background-color: #fff;
   padding: 5px;
+  transition: 400ms ease;
+  background: rgb(237,242,247);
 }
 .large {
-  /* background: rgba(255, 0, 0, 0.25); */
-  /* grid-column: auto / span 3; */
   grid-row: auto / span 3;
-  /* height: 200px; */
 }
 .item-table-pecas:hover {
-  box-shadow: 0 3px 5px 1px #0002;
+  border: 2px solid limegreen;
+  /* background: #eee; */
 }
-.item-color {
-  background-color: #f8f8f8;
+.item-color-pecas {
+  background: rgb(237,242,247);
 }
 .header-item1 {
   height: 80px;

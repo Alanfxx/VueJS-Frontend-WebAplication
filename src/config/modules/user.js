@@ -16,9 +16,9 @@ export default {
             commit('setUser', user)
             if(user) {
                 axios.defaults.headers.common['Authorization'] = `bearer ${user.token}`
-                rootState.global.isMenuVisible.status = true
+                rootState.global.ctrlGlobal.isMenuVisible = true
             }else{
-                rootState.global.isMenuVisible.status = false
+                rootState.global.ctrlGlobal.isMenuVisible = false
             }
         }
     }, 

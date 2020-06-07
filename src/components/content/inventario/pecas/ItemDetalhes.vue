@@ -45,10 +45,10 @@
           <b-button size="sm" variant="warning" @click="confirmEdicao">Aplicar</b-button>
           <b-button size="sm" class="ml-3" @click="cancelarEdicao">Cancelar</b-button>
         </div>
-        <div v-show="processing.status">
+        <div v-show="ctrlGlobal.processing">
           <b-spinner type="grow" variant="info"></b-spinner>
         </div>
-        <div v-show="!editing.status && !processing.status">
+        <div v-show="!editing.status && !ctrlGlobal.processing">
           <b-icon
             variant="warning"
             icon="pencil-square"
@@ -76,7 +76,7 @@ export default {
     return {
       // editing: false,
       itemEditing: {},
-      processing: this.$store.state.global.processing
+      ctrlGlobal: this.$store.state.global.ctrlGlobal
     };
   },
   methods: {
@@ -165,10 +165,13 @@ export default {
 }
 .campos-peca-detalhe div {
   display: flex;
-  padding: 3px;
-  border-radius: 8px;
+  align-items: center;
+  height: 30px;
+  padding: 0 3px;
+  border-radius: 4px;
   border: 1px solid #ccc;
-  margin-bottom: 6px;
+  margin-bottom: 3px;
+  font-size: 1rem;
 }
 .campos-peca-detalhe span {
   display: block;
@@ -182,9 +185,9 @@ export default {
 }
 .input-peca-detalhe {
   width: 100%;
-  border: 1px dashed #bbb;
-  border-radius: 5px;
-  padding: 0 5px;
+  border: 1px solid orange;
+  border-radius: 3px;
+  padding: 1px 5px;
 }
 .botoes-peca-detalhe div {
   height: 35px;

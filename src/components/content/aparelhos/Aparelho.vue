@@ -6,19 +6,19 @@
     <div class="dados-aparelho">
       <div class="aparelho-campos">
         <div>
-          <span>Tipo</span>
+          <span></span>
           <p>{{aparelho.tipo}}</p>
         </div>
         <div>
-          <span>Marca</span>
-          <p>{{aparelho.marca}}</p>
+          <span>Dono</span>
+          <p>{{dono.nome ? dono.nome : 'Não informado'}}</p>
         </div>
         <div>
           <span>Estado</span>
-          <p>{{aparelho.estado}}</p>
+          <p :style="'color:'+estadoColor">{{aparelho.estado}}</p>
         </div>
       </div>
-      <span class="bt-detalhe-aparelho" @click="$emit('detalhe')">
+      <span class="bt-detalhe-aparelho" @click="detalhe">
         <b-icon icon="aspect-ratio" class="mb-0 mt-0"></b-icon>
       </span>
     </div>
@@ -29,12 +29,37 @@
 export default {
   name: "Aparelho",
   props: ["aparelho"],
+  data: function() {
+    return {
+      ctrlAparelho: this.$store.state.aparelhos.ctrlAparelho
+    }
+  },
+  methods: {
+    detalhe() {
+      this.ctrlAparelho.tab = 'detalhe'
+      this.ctrlAparelho.itemAtual = { ...this.aparelho }
+    },
+  },
   computed: {
-    imagem() {
-      return `assets/TV.svg`
+    dono() {
+      if(this.aparelho.dono){
+        const dono = this.$store.getters.clientesList.filter(item => item.id == this.aparelho.dono)[0]
+        return dono ? dono : {}
+      } else {
+        return {}
+      }
+    },
+    estadoColor() {
+      if(this.aparelho.estado === 'Pendente') {
+        return 'orange'
+      } else if(this.aparelho.estado === 'Consertado') {
+        return 'green'
+      } else {
+        return 'red'
+      }
     }
   }
-};
+}
 </script>
 
 <style>
@@ -45,14 +70,14 @@ export default {
   grid-template-columns: 130px 1fr;
   grid-template-areas: "img content";
   border-radius: 4px;
-  border: 1px solid #0002;
+  border: 2px solid transparent;
   margin: 10px;
-  transition: 0.2s ease;
-  background: #eee;
-  /* box-shadow: 0 2px #0001; */
+  transition: 400ms ease;
+  background: rgb(237,242,247);
+  box-shadow: 2px 2px 2px #0002;
 }
 .aparelho:hover {
-  box-shadow: 0 3px 5px 1px #0002;
+  border: 2px solid limegreen;
 }
 .imagem-aparelho {
   grid-area: img;

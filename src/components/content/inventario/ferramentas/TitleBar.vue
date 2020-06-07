@@ -1,20 +1,12 @@
 <template>
-  <div class="title-bar-pecas">
-    <div class="filtros-titlebar-pecas">
+  <div class="title-bar-ferramentas">
+    <div class="filtros-titlebar-ferramentas">
       Filtrar
       <select name="select" v-model="filtro.tipo">
         <option value="Todos">Todos</option>
-        <option value="Capacitor">Capacitor</option>
-        <option value="Transistor">Transistor</option>
-        <option value="Resistor">Resistor</option>
-        <option value="CI">CI</option>
-        <option value="Diodo">Diodo</option>
-        <option value="LED">LED</option>
-        <option value="Flyback">Flyback</option>
       </select>
       <select name="select" v-model="filtro.key">
         <option value="name">Nome</option>
-        <option value="ref">Referencia</option>
         <option value="quant">Quantidade</option>
       </select>
       <select name="select" v-model="filtro.order">
@@ -39,7 +31,7 @@ export default {
 </script>
 
 <style>
-.title-bar-pecas {
+.title-bar-ferramentas {
   min-height: 40px;
   padding: 0 30px;
   background: rgb(237,242,247);
@@ -50,7 +42,7 @@ export default {
   color: #333;
   user-select: none;
 }
-.filtros-titlebar-pecas {
+.filtros-titlebar-ferramentas {
   min-width: 150px;
   display: flex;
   justify-content: space-between;
@@ -58,7 +50,7 @@ export default {
   flex-wrap: wrap;
   padding: 4px 0;
 }
-.filtros-titlebar-pecas select {
+.filtros-titlebar-ferramentas select {
   width: 130px;
   border: 1px solid #ccc;
   padding: 2px 4px;

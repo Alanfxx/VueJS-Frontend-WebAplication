@@ -3,7 +3,7 @@
     <TitleBar title="Peças" :novo="novo" 
       :filtro="filtro" @filtrar="filtrar"/>
     <!-- Formulario novo -->
-    <FormularioNovo :tabAtual="tabAtual" :novo="novo" @salvar="save" />
+    <FormularioNovo :novo="novo" @salvar="save" />
     <!-- Tabela dos itens -->
     <div class="conteudo-pecas">
       <ItemTable
@@ -28,8 +28,8 @@ export default {
   components: { TitleBar, ItemTable, FormularioNovo },
   data: function() {
     return {
-      tabAtual: "pecas",
-      novo: {pecas: false, ferramentas: false},
+      ctrlInventario: this.$store.state.inventario.ctrlInventario,
+      novo: {status: false},
       filtro: {tipo: 'Todos', key: null, order: null}
     }
   },
@@ -43,15 +43,22 @@ export default {
   },
   computed: {
     pecas() {
-      return this.$store.getters.pecasFiltradas
+      if(this.ctrlInventario.busca) {
+        const filtro = this.ctrlInventario.busca.toUpperCase().trim()
+        return this.$store.getters.pecasFiltradas.filter( item => 
+          item.name.toUpperCase().includes(filtro) || 
+          item.ref.toUpperCase().includes(filtro)
+        )
+      } else {
+        return this.$store.getters.pecasFiltradas
+      }
     }
   },
   methods: {
     filtrar() {
-      if(this.filtro.tipo === null) this.filtro.tipo = 'Todos'
       if(this.filtro.key === null) this.filtro.key = 'name'
       if(this.filtro.order === null) this.filtro.order = 'cresc'
-      this.$store.dispatch('arraySortBy', this.filtro )
+      this.$store.dispatch('pecasSortBy', this.filtro )
     },
     pecaToast(msg, variant) {
       this.$bvToast.toast(msg || "Sem mensagem", {
@@ -66,7 +73,7 @@ export default {
         return this.pecaToast(res.msg, "danger");
       }
       this.filtrar()
-      this.novo.pecas = false;
+      this.novo.status = false;
     },
     async save(peca) {
       const res = await this.$store.dispatch("savePeca", peca);
@@ -91,12 +98,14 @@ export default {
 </script>
 
 <style>
-/* .tab-pecas {
-} */
+.tab-pecas {
+  display: flex;
+  flex-direction: column;
+}
 .conteudo-pecas {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  grid-gap: 10px 0;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 290px));
+  grid-gap: 10px;
   grid-auto-flow: row dense;
   padding: 10px;
 }

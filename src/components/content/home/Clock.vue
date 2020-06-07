@@ -40,7 +40,8 @@ export default {
 #clock {
     font-family: "Share Tech Mono", monospace;
     text-align: center;
-    text-shadow: 0 0 6px rgb(0, 134, 20, 0.6), 0 0 20px rgba(28, 230, 10, 0);
+    /* text-shadow: 0 0 6px rgb(0, 134, 20, 0.6), 0 0 20px rgba(28, 230, 10, 0); */
+    text-shadow: 0 0 6px rgba(241, 255, 244, 0.6), 0 0 20px rgba(61, 68, 61, 0);
     user-select: none;
 }
 .time {

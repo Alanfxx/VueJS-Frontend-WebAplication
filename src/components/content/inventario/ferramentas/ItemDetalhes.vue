@@ -1,15 +1,15 @@
 <template>
-  <div class="item-detalhes" v-show="mostrarDetalhes">
-    <div class="imagem-item-detalhes">
-      <img src="@/assets/semImagem.png" alt="Sem imagem"/>
+  <div class="ferramenta-detalhe" v-show="mostrarDetalhes">
+    <div class="imagem-ferramenta-detalhe">
+      <img :src="require(`@/assets/semImagem.png`)" alt="Imagem da ferramenta" />
     </div>
-    <div class="conteudo-item-detalhes">
-      <div class="campos-item-detalhes">
+    <div class="conteudo-ferramenta-detalhe">
+      <div class="campos-ferramenta-detalhe">
         <div>
-          <span class="chaves-item-detalhes">Nome:</span>
+          <span class="chaves-ferramenta-detalhe">Nome:</span>
           <span v-show="!editing.status">{{item.name}}</span>
           <input
-            class="input-item-detalhes"
+            class="input-ferramenta-detalhe"
             type="text"
             required
             v-model="itemEditing.name"
@@ -17,12 +17,11 @@
             disabled
           />
         </div>
-        
         <div>
-          <span class="chaves-item-detalhes">Quantidade:</span>
+          <span class="chaves-ferramenta-detalhe">Quantidade:</span>
           <span v-show="!editing.status">{{item.quant}}</span>
           <input
-            class="input-item-detalhes"
+            class="input-ferramenta-detalhe"
             type="number"
             required
             v-model="itemEditing.quant"
@@ -30,15 +29,15 @@
           />
         </div>
       </div>
-      <div class="botoes-item-detalhes">
+      <div class="botoes-ferramenta-detalhe">
         <div v-show="editing.status">
           <b-button size="sm" variant="warning" @click="confirmEdicao">Aplicar</b-button>
           <b-button size="sm" class="ml-3" @click="cancelarEdicao">Cancelar</b-button>
         </div>
-        <div v-show="processing.status">
+        <div v-show="ctrlGlobal.processing">
           <b-spinner type="grow" variant="info"></b-spinner>
         </div>
-        <div v-show="!editing.status && !processing.status">
+        <div v-show="!editing.status && !ctrlGlobal.processing">
           <b-icon
             variant="warning"
             icon="pencil-square"
@@ -64,9 +63,8 @@ export default {
   props: ["item", "mostrarDetalhes", "editing"],
   data: function() {
     return {
-      // editing: false,
       itemEditing: {},
-      processing: this.$store.state.global.processing
+      ctrlGlobal: this.$store.state.global.ctrlGlobal
     };
   },
   methods: {
@@ -124,68 +122,72 @@ export default {
 </script>
 
 <style>
-.item-detalhes {
-  /* min-width: 300px; */
+.ferramenta-detalhe {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
-.imagem-item-detalhes {
-  /* padding: 2px 20px; */
-  width: 300px;
+.imagem-ferramenta-detalhe {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   user-select: none;
 }
-.imagem-item-detalhes img {
+.imagem-ferramenta-detalhe img {
+  position: relative;
+  margin: 0 auto;
   max-height: 120px;
 }
-.conteudo-item-detalhes {
-  padding: 5px 30px 5px 5px;
+.conteudo-ferramenta-detalhe {
+  width: 100%;
+  padding: 5px 0 15px;
   flex: 1;
   display: flex;
   flex-direction: column;
   align-content: center;
 }
-.campos-item-detalhes {
+.campos-ferramenta-detalhe {
   padding: 5px 0;
   display: flex;
   flex-direction: column;
 }
-.campos-item-detalhes div {
+.campos-ferramenta-detalhe div {
   display: flex;
-  padding: 3px 20px;
-  border-radius: 8px;
+  align-items: center;
+  height: 30px;
+  padding: 0 3px;
+  border-radius: 4px;
   border: 1px solid #ccc;
-  margin-bottom: 6px;
+  margin-bottom: 3px;
+  font-size: 1rem;
 }
-.campos-item-detalhes span {
+.campos-ferramenta-detalhe span {
   display: block;
   width: 100%;
   text-align: left;
   padding: 1px 6px;
 }
-.campos-item-detalhes .chaves-item-detalhes {
+.campos-ferramenta-detalhe .chaves-ferramenta-detalhe {
   color: #888;
   width: 70%;
 }
-.input-item-detalhes {
+.input-ferramenta-detalhe {
   width: 100%;
-  border: 1px dashed #bbb;
-  border-radius: 5px;
-  padding: 0 5px;
+  border: 1px solid orange;
+  border-radius: 3px;
+  padding: 1px 5px;
 }
-.botoes-item-detalhes div {
+.botoes-ferramenta-detalhe div {
   height: 35px;
 }
 @media (max-width: 900px) {
-  .imagem-item-detalhes {
+  .imagem-ferramenta-detalhe {
     width: 100%;
   }
-  .conteudo-item-detalhes {
+  .conteudo-ferramenta-detalhe {
     padding: 3px;
   }
-  .campos-item-detalhes div {
+  .campos-ferramenta-detalhe div {
     padding: 3px 5px;
   }
 }

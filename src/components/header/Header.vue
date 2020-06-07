@@ -24,8 +24,15 @@ export default {
     components: { Navbar, UserDropdown, MenuLateral},
     mounted() {
         //CARREGAR DADOS
+        this.$store.dispatch("loadAparelhos");
+        this.$store.dispatch("loadClientes");
         this.$store.dispatch("loadPecas");
         this.$store.dispatch("loadFerramentas");
+
+        //Setar Aside como escondido em telas pequenas
+        if(screen.width < 768) {
+            this.$store.state.global.ctrlGlobal.reduce = true
+        }
     },
     data: function() {
         return {

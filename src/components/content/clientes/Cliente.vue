@@ -5,8 +5,8 @@
     </div>
     <div class="content-cliente">
       <span>Nome</span>
-      <p>{{cliente.name}}</p>
-      <span class="bt-detalhe-cliente" @click="$emit('detalhe')">
+      <p>{{cliente.nome}}</p>
+      <span class="bt-detalhe-cliente" @click="detalhe">
         <b-icon icon="aspect-ratio" class="mb-0 mt-0"></b-icon>
       </span>
     </div>
@@ -16,26 +16,37 @@
 <script>
 export default {
   name: 'Cliente',
-  props: ['cliente']
+  props: ['cliente'],
+  data: function() {
+    return {
+      ctrlCliente: this.$store.state.clientes.ctrlCliente
+    }
+  },
+  methods: {
+    detalhe() {
+      this.ctrlCliente.tab = 'detalhe'
+      this.ctrlCliente.itemAtual = { ...this.cliente }
+    }
+  }
 }
 </script>
 
 <style>
 .cliente:hover {
-  box-shadow: 0 3px 5px 1px #0002;
+  border: 2px solid limegreen;
 }
 .cliente {
   width: 290px;
   height: 100px;
-  background: #eee;
-  border: 1px solid #ccc;
+  background: rgb(237,242,247);
+  border: 2px solid transparent;
   border-radius: 5px;
   margin: 10px;
   display: grid;
   grid-template-columns: 130px 1fr;
   grid-template-areas: "img content";
-  /* box-shadow: 0 2px #0001; */
-  transition: 0.2s ease;
+  box-shadow: 2px 2px 2px #0002;
+  transition: 400ms ease;
 }
 .img-cliente {
   grid-area: img;

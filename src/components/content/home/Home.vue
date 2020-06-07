@@ -1,7 +1,11 @@
 <template>
   <div class="home-page">
-    <Clock class="clock" />
-    <img src="@/assets/imagem-home.png" class="imagem-home" alt="Imagem eletronicos"/>
+    <div>
+      <img src="@/assets/luz.gif" alt="Imagem noite lampada" />
+    </div>
+    <div>
+      <Clock class="clock" />
+    </div>
   </div>
 </template>
 
@@ -16,21 +20,22 @@ export default {
 <style>
 .home-page {
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 3fr));
+  grid-auto-flow: row dense;
   overflow: auto;
-  justify-content: space-evenly;
-  padding: 10px;
-  background: rgba(0, 255, 21, 0.1);
+  background: #110f28;
+}
+.home-page img {
+  max-width: 100%;
 }
 .clock {
-  padding-top: 50px;
-  max-height: 100%;
+  color: #fff;
+  margin-top: 100px;
 }
-img.imagem-home {
-  position: relative;
-  max-width: 100%;
-  max-height: 400px;
-  padding-top: 20px;
+@media(max-width: 760px) {
+  .clock {
+    margin: unset;
+  }
 }
 </style>

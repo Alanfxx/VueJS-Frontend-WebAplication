@@ -1,72 +1,123 @@
 <template>
-    <div class="item-table" :class="{'item-color': index%2==0}">
-        <div class="header-table-item" @click="toggleDetalhes">
-            <div v-show="!mostrarDetalhes">{{item.name}}</div>
-            <div v-show="!mostrarDetalhes">{{item.quant}}</div>
-            <b-icon style="width: 30px; height: 30px; color: #777;" icon='chevron-double-up' v-show="mostrarDetalhes"></b-icon>
+  <div class="item-table-ferramentas" 
+    :class="{'item-color-ferramentas': index%2==0, 'large': mostrarDetalhes}">
+    <div>
+      <div class="header-item1" v-show="!mostrarDetalhes">
+        <img :src="require(`@/assets/semImagem.png`)" alt="Imagem da ferramenta" />
+        <div class="header-item1-content">
+            <div>
+                <p>{{item.name}}</p>
+            </div>
+            <div><span>{{item.quant}}</span></div>
         </div>
-        <ItemDetalhes :item='item' @editar="editar" :editing='editing'
-            @remove="$emit('remove')" :mostrarDetalhes="mostrarDetalhes"/>
-                <!-- Alterei aqui -->
+      </div>
     </div>
+    <div @click="toggleDetalhes" class="bt-header-item">
+      <b-icon
+          style="width: 20px; height: 20px; color: #666;"
+          icon="chevron-double-down" v-show="!mostrarDetalhes"
+      ></b-icon>
+      <b-icon
+          style="width: 20px; height: 20px; color: #666;"
+          icon="chevron-double-up" v-show="mostrarDetalhes"
+      ></b-icon>
+    </div>
+    <ItemDetalhes :item="item" @editar="editar"
+      :editing="editing" @remove="$emit('remove')" :mostrarDetalhes="mostrarDetalhes"
+    />
+  </div>
 </template>
 
 <script>
-import ItemDetalhes from './ItemDetalhes'
+import ItemDetalhes from "./ItemDetalhes";
 export default {
-    name: "ItemTable",
-    props: [ 'item', 'index' ],
-    components: { ItemDetalhes },
-    data: function() {
-        return {
-            mostrarDetalhes: false,
-            editing: {status: false}
-        }
+  name: "ItemTable",
+  props: ["item", "index"],
+  components: { ItemDetalhes },
+  data: function() {
+    return {
+      mostrarDetalhes: false,
+      editing: { status: false }
+    };
+  },
+  methods: {
+    toggleDetalhes() {
+      this.editing.status = false;
+      this.mostrarDetalhes = !this.mostrarDetalhes;
     },
-    methods: {
-        toggleDetalhes() {
-            this.editing.status = false
-            this.mostrarDetalhes = !this.mostrarDetalhes
-        },
-        editar(item) {
-            this.$emit('editar', item)
-        }
+    editar(item) {
+      this.$emit("editar", item);
     }
-}
+  }
+};
 </script>
 
 <style>
-.item-table {
-    /* min-width: 300px; */
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px #0001;
-    margin: 7px 10px 0;
-    transition: .2s ease;
-    background-color: #fff;
+.item-table-ferramentas {
+  position: relative;
+  width: 290px;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px #0002;
+  margin: 0 auto;
+  padding: 5px;
+  transition: 400ms ease;
+  background: rgb(237,242,247);
 }
-.item-table:hover {
-    box-shadow: 0 3px 5px 1px #0002;
+.large {
+  grid-row: auto / span 3;
 }
-.item-color {
-    background-color: #f8f8f8;
+.item-table-ferramentas:hover {
+  border: 2px solid limegreen;
 }
-.header-table-item {
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-    cursor: pointer;
-    user-select: none;
-    border-radius: 5px;
+.item-color-ferramentas {
+  background: rgb(237,242,247);
 }
-.header-table-item div {
-    width: 100%;
+.header-item1 {
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-/* .header-table-item:hover {
-    background-color: rgb(228, 255, 235);
-} */
+.bt-header-item {
+  position: absolute;
+  right: 5px;
+  bottom: 3px;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 1px 12px;
+}
+.bt-header-item:hover {
+  background: #0001;
+}
+.header-item1 img {
+  margin: 0 auto;
+  height: 100%;
+  /* padding: 8px; */
+}
+.header-item1-content {
+  display: flex;
+  min-width: 170px;
+  padding: 5px 5px 5px 20px;
+}
+.header-item1-content span {
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: darkslateblue;
+}
+.header-item1-content p {
+  margin-bottom: 8px;
+  text-align: left;
+  font-weight: 600;
+  color: #555;
+}
+.header-item1-content > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
 </style>

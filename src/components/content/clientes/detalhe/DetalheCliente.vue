@@ -1,14 +1,17 @@
 <template>
   <div class="detalhe-cliente">
-    <div class="imagem-detalhe-cliente" v-if="cliente.name">
+    <div class="imagem-detalhe-cliente" v-if="ctrlCliente.itemAtual.nome">
       <img :src="require(`@/assets/clientes/cliente.png`)" alt="Imagem do cliente"/>
     </div>
     <div class="content-detalhe-cliente">
-      <Campos :cliente='cliente'/>
-      <b-icon icon='x-circle-fill' class="fechar" @click="$emit('fechar')"></b-icon>
-      <div class="opcoes-detalhe-cliente">
-        <a href='#' class='ml-5'>Excluir</a>
+      <Campos />
+      <b-icon icon='x-circle-fill' class="fechar" @click="ctrlCliente.tab='todos'"></b-icon>
+      <div class="opcoes-detalhe-cliente" v-show="!ctrlGlobal.processing">
+        <a href='#' class='ml-5' @click="confirmExclusao">Excluir</a>
         <b-button variant='warning' class='mr-5 px-3 py-1'>Editar</b-button>
+      </div>
+      <div class="opcoes-detalhe-cliente" v-show="ctrlGlobal.processing">
+        <b-spinner class='mx-5' type="grow" variant="info"></b-spinner>
       </div>
     </div>
   </div>
@@ -19,7 +22,50 @@ import Campos from './Campos'
 export default {
   name: "DetalhesCliente",
   components: { Campos },
-  props: ["cliente"]
+  data: function() {
+    return {
+      ctrlGlobal: this.$store.state.global.ctrlGlobal,
+      ctrlCliente: this.$store.state.clientes.ctrlCliente
+    }
+  },
+  methods: {
+    ClienteToast(msg, variant) {
+      this.$bvToast.toast(msg || "Sem mensagem", {
+        title: "Clientes",
+        variant: variant,
+        solid: true
+      });
+    },
+    async removeCliente() {
+      const res = await this.$store.dispatch("removeCliente", this.ctrlCliente.itemAtual);
+      if (res.tipo === "sucesso") {
+        this.ClienteToast(res.msg, "success")
+        this.$store.dispatch("loadClientes")
+        this.ctrlCliente.tab = 'todos'
+      } else {
+        this.ClienteToast(res.msg, "danger")
+      }
+    },
+    confirmExclusao() {
+      this.$bvModal
+        .msgBoxConfirm("Confirma a exclusão?", {
+          // title: 'Please Confirm',
+          size: "sm",
+          buttonSize: "sm",
+          okVariant: "danger",
+          okTitle: "Sim",
+          cancelTitle: "Não",
+          footerClass: "p-2",
+          hideHeaderClose: false,
+          centered: true
+        })
+        .then(value => {
+          if (value) {
+            this.removeCliente()
+          }
+        });
+    }
+  }
 };
 </script>
 
@@ -36,19 +82,17 @@ export default {
   padding: 10px;
 }
 .imagem-detalhe-cliente {
-  height: 100%;
+  max-width: 100%;
   grid-area: imagem;
   display: flex;
   overflow: hidden;
   justify-content: center;
+  align-items: center;
   user-select: none;
 }
 .imagem-detalhe-cliente img {
   position: relative;
-  padding: 8px;
   border-radius: 15px;
-  min-width: 50px;
-  max-width: 100%;
   max-height: 100%;
 }
 .content-detalhe-cliente {
@@ -92,9 +136,6 @@ export default {
   }
   .content-detalhe-cliente {
     padding: 3px;
-  }
-  .imagem-detalhe-cliente img {
-    max-height: 100%;
   }
 }
 </style>

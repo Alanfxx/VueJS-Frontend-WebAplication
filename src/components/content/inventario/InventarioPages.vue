@@ -1,25 +1,23 @@
 <template>
-  <div class="inventario-pages" :class="{reduce: reduce.status}">
-    <Aside :reduce="reduce">
+  <div class="inventario-pages" :class="{reduce: ctrlGlobal.reduce}">
+    <Aside>
       <template v-slot:header>
         <b-icon icon='tools' class='h5 mb-0 ml-2 mr-3'/> Inventário
       </template>
       <template v-slot:content>
-        <AsideContent :tab="tab"
-          @pecas="tab='Peças'"
-          @ferramentas="tab='Ferramentas'" />
+        <AsideContent />
       </template>
     </Aside>
 
     <div class="inventario-content">
-      <Pecas v-show="tab==='Peças'"/>
-      <Ferramentas v-show="tab==='Ferramentas'"/>
+      <Pecas v-show="ctrlInventario.tab==='pecas'" />
+      <Ferramentas v-show="ctrlInventario.tab==='ferramentas'" />
     </div>
   </div>
 </template>
 
 <script>
-import Aside from "../Aside.vue";
+import Aside from "./Aside.vue";
 import AsideContent from './AsideContentInventario.vue'
 import Pecas from "./pecas/Pecas";
 import Ferramentas from "./ferramentas/Ferramentas";
@@ -29,8 +27,8 @@ export default {
   components: { Pecas, Ferramentas, Aside, AsideContent },
   data: function() {
     return {
-      reduce: { status: false },
-      tab: 'Peças'
+      ctrlInventario: this.$store.state.inventario.ctrlInventario,
+      ctrlGlobal: this.$store.state.global.ctrlGlobal
     };
   }
 };
