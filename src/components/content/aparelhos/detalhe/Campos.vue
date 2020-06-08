@@ -14,7 +14,7 @@
     </div>
     <div>
       <span>Dono</span>
-      <p v-show="!ctrlAparelho.itemAtual.dono">Não informado</p>
+      <p v-show="!ctrlAparelho.itemAtual.dono">-</p>
       <a href="#" @click="verDono.status=true" v-if="ctrlAparelho.itemAtual.dono">{{ dono.nome }}</a>
     </div>
     <div>
@@ -25,9 +25,12 @@
       <span>Data de Saída</span>
       <p>{{dts || '-'}}</p>
     </div>
-    <div>
+    <div id="alterar-estado-aparelho">
       <span>Estado atual</span>
-      <p :style="'color:'+estadoColor(ctrlAparelho.itemAtual.estado)">{{ctrlAparelho.itemAtual.estado}}</p>
+      <p :style="'color:'+estadoColor(ctrlAparelho.itemAtual.estado)">{{ctrlAparelho.itemAtual.estado}}
+      <a href="#" @click="ctrlAparelho.editarEstado=true" class="ml-3">
+        <b-icon icon='arrow-clockwise'></b-icon> Atualizar estado</a>
+      </p>
     </div>
     <div>
       <span>Descrição</span>
@@ -90,7 +93,7 @@ export default {
 <style>
 .campos-aparelho {
   height: 100%;
-  padding: 10px 10px;
+  padding: 10px 0 10px 10px;
 }
 .campos-aparelho div {
   display: flex;
@@ -116,9 +119,29 @@ p.descricao {
   font-size: 1rem;
   text-align: justify;
 }
+#alterar-estado-aparelho {
+  margin-bottom: 16px;
+}
+#alterar-estado-aparelho a:hover {
+  text-decoration: none;
+  background: orange;
+  color: #fff;
+}
+#alterar-estado-aparelho p {
+  margin: 0px;
+}
+#alterar-estado-aparelho a {
+  margin: 0px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 4px 6px;
+  border-radius: 4px;
+  user-select: none;
+}
 @media (max-width: 768px) {
-  .campos-aparelho div {
+  .campos-aparelho > div {
     flex-direction: column;
+    align-items: unset;
   }
   .campos-aparelho {
     padding: 10px 0 0 0;

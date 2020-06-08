@@ -11,7 +11,7 @@
         </div>
         <div>
           <span>Dono</span>
-          <p>{{dono.nome ? dono.nome : 'Não informado'}}</p>
+          <p>{{dono.nome ? dono.nome : '-'}}</p>
         </div>
         <div>
           <span>Estado</span>

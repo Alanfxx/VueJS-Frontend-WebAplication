@@ -5,7 +5,7 @@
     </div>
     <div class="content-detalhe-cliente">
       <Campos />
-      <b-icon icon='x-circle-fill' class="fechar" @click="ctrlCliente.tab='todos'"></b-icon>
+      <!-- <b-icon icon='x-circle-fill' class="fechar" @click="ctrlCliente.tab='todos'"></b-icon> -->
       <div class="opcoes-detalhe-cliente" v-show="!ctrlGlobal.processing">
         <a href='#' class='ml-5' @click="confirmExclusao">Excluir</a>
         <b-button variant='warning' class='mr-5 px-3 py-1'>Editar</b-button>
@@ -104,7 +104,7 @@ export default {
   text-align: left;
   padding: 10px 10px 10px 20px;
 }
-.content-detalhe-cliente .fechar:hover {
+/* .content-detalhe-cliente .fechar:hover {
   color: #000a;
   width: 30px;
   height: 30px;
@@ -119,7 +119,7 @@ export default {
   cursor: pointer;
   user-select: none;
   color: #0006;
-}
+} */
 .opcoes-detalhe-cliente {
   display: flex;
   justify-content: space-between;

@@ -64,29 +64,6 @@ export default {
     },
     async saveCliente({ rootState }, cliente) {
       rootState.global.ctrlGlobal.processing = true
-
-      // if (!cliente.name) {
-      //   rootState.global.ctrlGlobal.processing = false
-      //   return { tipo: 'erro', msg: "Nome não informado" }
-      // }
-      // if (!cliente.ref) {
-      //   rootState.global.ctrlGlobal.processing = false
-      //   return { tipo: 'erro', msg: "Referência não informada" }
-      // }
-      // if (!cliente.quant) {
-      //   rootState.global.ctrlGlobal.processing = false
-      //   return { tipo: 'erro', msg: "Quantidade não informada" }
-      // }
-      // cliente.quant = parseInt(cliente.quant)
-      // if (typeof cliente.quant !== "number") {
-      //   rootState.global.ctrlGlobal.processing = false
-      //   return { tipo: 'erro', msg: "Quantidade inválida" }
-      // }
-      // if (cliente.quant < 0) {
-      //   rootState.global.ctrlGlobal.processing = false
-      //   return { tipo: 'erro', msg: "Quantidade não pode ser negativa" }
-      // }
-
       const method = cliente.id ? 'put' : 'post'
       const id = cliente.id ? `/${cliente.id}` : ''
       return await axios[method](`${baseApiUrl}/clientes${id}`, cliente).then(() => {
@@ -101,7 +78,7 @@ export default {
       rootState.global.ctrlGlobal.processing = true
       // Não aceitar exclusão caso exista aparelho vinculado
       const aparelhos = rootState.aparelhos.aparelhos.filter(item => item.dono === cliente.id)
-      if( aparelhos.length > 0) {
+      if (aparelhos.length > 0) {
         rootState.global.ctrlGlobal.processing = false
         return { tipo: 'erro', msg: 'Não é possível excluir. Cliente possui aparelhos vinculados' }
       }
@@ -114,6 +91,22 @@ export default {
         rootState.global.ctrlGlobal.processing = false
         return { tipo: 'erro', msg: err.response.data }
       })
+    },
+    async delAparelhoFromList({ dispatch }, aparelho) {
+      if (aparelho.dono) {
+        let dono = this.getters.getClienteById(aparelho.dono)
+        if (!dono) return { tipo: 'sucesso' }
+
+        dono.aparelhos.splice(dono.aparelhos.indexOf(aparelho.id), 1);
+        //Atualizar cliente
+        return await dispatch('saveCliente', dono)
+      }
+      return { tipo: 'sucesso' }
+    },
+    async addAparelhoToList({ dispatch }, { apId, dono }) {
+      if (!dono || !dono.aparelhos) return { tipo: 'sucesso' }
+      dono.aparelhos.push(apId)
+      return await dispatch('saveCliente', dono)
     }
   },
   getters: {
@@ -122,6 +115,9 @@ export default {
     },
     clientesFiltrados(state) {
       return state.clientesFiltrados
+    },
+    getClienteById: (state) => (id) => {
+      return state.clientes.find(cli => cli.id === id)
     }
   }
 }

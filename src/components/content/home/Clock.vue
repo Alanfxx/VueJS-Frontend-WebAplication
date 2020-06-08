@@ -1,10 +1,9 @@
 <template>
     <div id="clock">
-        <p class="date">{{ date }}</p>
         <p class="time">{{ time }}</p>
-        <p class="text">Em construção..</p><br>
+        <p class="date">{{ date }}</p>
         <p class="text">Ultima atualização em: </p>
-        <p class="text">29/05/2020 às 15:33</p>
+        <p class="text">08/06/2020 às 19:50</p>
     </div>
 </template>
 

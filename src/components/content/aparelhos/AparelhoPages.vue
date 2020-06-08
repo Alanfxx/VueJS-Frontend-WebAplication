@@ -26,6 +26,9 @@
       </div>
       <!-- Detalhes -->
       <DetalheAparelho v-show="ctrlAparelho.tab === 'detalhe'"/>
+      <!-- Editar -->
+      <EditarAparelho v-show="ctrlAparelho.editar"/>
+      <EditarEstado v-show="ctrlAparelho.editarEstado"/>
     </div>
   </div>
 </template>
@@ -36,10 +39,12 @@ import NovoAparelho from './NovoAparelho'
 import Aparelho from "./Aparelho"
 import DetalheAparelho from "./detalhe/DetalheAparelho"
 import AsideContentAparelhos from "./AsideContentAparelhos"
+import EditarAparelho from './EditarAparelho'
+import EditarEstado from './EditarEstado'
 
 export default {
   name: "AparelhosPages",
-  components: { Aside, NovoAparelho, Aparelho, DetalheAparelho, AsideContentAparelhos },
+  components: { EditarEstado, Aside, NovoAparelho, Aparelho, DetalheAparelho, AsideContentAparelhos, EditarAparelho },
   data: function() {
     return {
       ctrlAparelho: this.$store.state.aparelhos.ctrlAparelho,
@@ -52,8 +57,9 @@ export default {
         const filtro = this.ctrlAparelho.busca.toUpperCase().trim()
         return this.$store.getters.aparelhosList.filter( item => 
           item.tipo.toUpperCase().includes(filtro) || 
-          item.marca.toUpperCase().includes(filtro) ||
           item.modelo.toUpperCase().includes(filtro) ||
+          item.marca.toUpperCase().includes(filtro) ||
+          item.estado.toUpperCase().includes(filtro) ||
           item.descricao.toUpperCase().includes(filtro)
         )
       } else {

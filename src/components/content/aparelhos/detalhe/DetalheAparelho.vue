@@ -6,26 +6,28 @@
     <div class="content-detalhe-aparelho">
       <Campos />
       <div class="opcoes-detalhe-aparelho" v-show="!ctrlGlobal.processing">
-        <a href='#' class='ml-5' @click="confirmExclusao">Excluir</a>
-        <b-button variant='warning' class='mr-5 px-3 py-1'>Editar</b-button>
+        <a href='#' id="excluir-aparelho" class='ml-5' @click="confirmExclusao">Excluir</a>
+        <b-button variant='warning' class='mr-5 px-3 py-1' 
+          @click="ctrlAparelho.editar=true">Editar</b-button>
       </div>
       <div class="opcoes-detalhe-aparelho" v-show="ctrlGlobal.processing">
         <b-spinner class='mx-5' type="grow" variant="info"></b-spinner>
       </div>
     </div>
-    <b-icon icon='x-circle-fill' class="fechar" @click="ctrlAparelho.tab='todos'"></b-icon>
+    <!-- <b-icon icon='x-circle-fill' class="fechar" @click="ctrlAparelho.tab='todos'"></b-icon> -->
   </div>
 </template>
 
 <script>
 import Campos from './Campos'
+
 export default {
   name: "DetalhesAparelho",
-  components: { Campos },
+  components: { Campos},
   data: function() {
     return {
       ctrlGlobal: this.$store.state.global.ctrlGlobal,
-      ctrlAparelho: this.$store.state.aparelhos.ctrlAparelho
+      ctrlAparelho: this.$store.state.aparelhos.ctrlAparelho,
     }
   },
   methods: {
@@ -104,23 +106,20 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   text-align: left;
-  padding: 10px 10px 10px 20px;
+  padding: 10px 0 10px 20px;
 }
-.detalhe-aparelho .fechar:hover {
-  color: #000a;
-  width: 30px;
-  height: 30px;
-  transition: .1s ease;
+#excluir-aparelho:hover {
+  text-decoration: none;
+  background: coral;
+  color: #fff;
 }
-.detalhe-aparelho .fechar {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 26px;
-  height: 26px;
-  cursor: pointer;
+#excluir-aparelho {
+  margin-left: 20px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 8px 10px;
+  border-radius: 4px;
   user-select: none;
-  color: #0006;
 }
 .opcoes-detalhe-aparelho {
   display: flex;

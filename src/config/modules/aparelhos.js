@@ -10,7 +10,9 @@ export default {
       tab: 'todos',
       novo: false,
       busca: null,
-      tipos: ['TV', 'Som', 'Celular', 'Camera', 'Notebook', 'Roteador']
+      tipos: ['TV', 'Som', 'Celular', 'Camera', 'Notebook', 'Roteador'],
+      editar: false,
+      editarEstado: false
     }
   },
   mutations: {
@@ -79,15 +81,13 @@ export default {
     },
     async removeAparelho({ dispatch, rootState }, aparelho) {
       rootState.global.ctrlGlobal.processing = true
-      // Excluir id do aparelho da lista de aparelhos do cliente
-      if(aparelho.dono) {
-        const dono = rootState.clientes.clientes.filter(item => item.id === aparelho.dono)[0]
-        dono.aparelhos.splice(dono.aparelhos.indexOf(aparelho.id), 1);
-        //Atualizar cliente
-        const resp = await dispatch('saveCliente', dono)
-        if(resp.tipo === 'erro') return resp
-      }
-      // ----
+
+      const resp = await dispatch('delAparelhoFromList', aparelho)
+      if(resp.tipo === 'erro') {
+        rootState.global.ctrlGlobal.processing = false
+        return resp
+      } 
+
       const id = aparelho.id
       return await axios.delete(`${baseApiUrl}/aparelhos/${id}`).then(() => {
         rootState.global.ctrlGlobal.processing = false
@@ -104,6 +104,9 @@ export default {
     },
     aparelhosFiltrados(state) {
       return state.aparelhosFiltrados
+    },
+    getAparelhoById: (state) => (id) => {
+      return state.aparelhos.find(ap => ap.id === id)
     }
   }
 }

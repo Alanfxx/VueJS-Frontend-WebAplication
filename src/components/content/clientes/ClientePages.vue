@@ -42,8 +42,10 @@ export default {
       if(this.ctrlCliente.busca) {
         const filtro = this.ctrlCliente.busca.toUpperCase().trim()
         return this.$store.getters.clientesList.filter( item => 
-          item.nome.toUpperCase().includes(filtro) || 
-          item.apelido.toUpperCase().includes(filtro)
+          item.nome.toUpperCase().includes(filtro) ||
+          item.apelido.toUpperCase().includes(filtro) ||
+          item.cidade.toUpperCase().includes(filtro) ||
+          item.tels.toUpperCase().includes(filtro)
         )
       } else {
         return this.$store.getters.clientesList

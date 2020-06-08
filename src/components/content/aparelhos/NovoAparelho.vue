@@ -13,13 +13,13 @@
       <div class="campo-novo-aparelho">
         <div>Modelo</div>
         <div>
-          <input name="Modelo" type="text" v-model="modelo"/>
+          <input name="Modelo" type="text" v-model="modelo" />
         </div>
       </div>
       <div class="campo-novo-aparelho">
         <div>Marca</div>
         <div>
-          <input name="Marca" type="text" v-model="marca"/>
+          <input name="Marca" type="text" v-model="marca" />
         </div>
       </div>
       <div class="campo-novo-aparelho">
@@ -27,14 +27,18 @@
         <div>
           <select name="Dono" v-model="dono">
             <option :value="{}">Não cadastrado</option>
-            <option v-for="cliente in clientes" :key="cliente.nome" :value="cliente">{{cliente.nome}}</option>
+            <option
+              v-for="cliente in clientes"
+              :key="cliente.nome"
+              :value="cliente"
+            >{{cliente.nome}}</option>
           </select>
         </div>
       </div>
       <div class="campo-novo-aparelho">
         <div>Data de Entrada</div>
         <div>
-          <input name="Data de Entrada" type="datetime-local" v-model="dte"/>
+          <input name="Data de Entrada" type="datetime-local" v-model="dte" />
         </div>
       </div>
       <div class="campo-novo-aparelho">
@@ -54,12 +58,11 @@
         </div>
       </div>
       <div class="bts-novo-aparelho" v-show="!ctrlGlobal.processing">
-        <a href="#" @click="cancelar">Cancelar</a>
-        <b-button size="sm" variant="success" class="ml-4 mr-3 px-3"
-          @click="salvarNovo">Salvar</b-button>
+        <a href="#" @click="reset">Cancelar</a>
+        <b-button size="sm" variant="success" class="ml-4 mr-3 px-3" @click="salvarNovo">Salvar</b-button>
       </div>
       <div class="bts-novo-aparelho" v-show="ctrlGlobal.processing">
-        <b-spinner class='mr-5' type="grow" variant="info"></b-spinner>
+        <b-spinner class="mr-5" type="grow" variant="info"></b-spinner>
       </div>
     </div>
   </div>
@@ -67,7 +70,7 @@
 
 <script>
 export default {
-  name: 'novoAparelho',
+  name: "novoAparelho",
   data: function() {
     return {
       ctrlGlobal: this.$store.state.global.ctrlGlobal,
@@ -77,70 +80,95 @@ export default {
       modelo: null,
       dono: null,
       dte: null,
-      dts: null,
-      estado: 'Pendente',
+      estado: "Pendente",
       descricao: null
+    };
+  },
+  watch: {
+    novoWatch() {
+      this.dte = this.$store.state.global.formatarParaDataInput(Date.now());
     }
   },
   computed: {
     clientes() {
-      return this.$store.getters.clientesList
+      return this.$store.getters.clientesList;
+    },
+    novoWatch() {
+      return this.ctrlAparelho.novo;
     }
   },
   methods: {
-    novoAparelhoToast(msg, variant) {
-      this.$bvToast.toast(msg || "Sem mensagem", {
-        title: "Inventário",
-        variant: variant,
-        solid: true
-      });
+    reset() {
+      this.tipo = null;
+      this.marca = null;
+      this.modelo = null;
+      this.dono = null;
+      this.descricao = null;
+      this.ctrlAparelho.novo = false;
     },
     async salvarNovo() {
-      if(!this.tipo) return this.novoAparelhoToast('Tipo não informado', 'danger')
-      if(!this.modelo) return this.novoAparelhoToast('Modelo não informado', 'danger')
-      if(!this.marca) return this.novoAparelhoToast('Marca não informada', 'danger')
-      if(!this.dono) return this.novoAparelhoToast('Dono não informada', 'danger')
-      if(!this.dte) return this.novoAparelhoToast('Data não informada', 'danger')
+      if (!this.validarCampos()) return;
+      let novoAparelho = this.aparelhoFactory();
 
+      const res = await this.$store.dispatch("saveAparelho", novoAparelho);
+      if (res.tipo === "sucesso") {
+        novoAparelho.id = res.id; //Novo Id
+        this.novoAparelhoToast(res.msg, "success");
+        await this.$store.dispatch("loadAparelhos");
+        this.reset();
+        // Adicionar id do aparelho criado à lista de aparelhos do cliente dono
+        if (novoAparelho.dono) {
+          const resp = await this.$store.dispatch("addAparelhoToList", {apId: novoAparelho, dono: this.dono});
+          if(resp.tipo === 'erro') this.novoAparelhoToast(resp.msg, "danger")
+          this.$store.dispatch("loadClientes");
+        }
+      } else {
+        this.novoAparelhoToast(res.msg, "danger");
+      }
+    },
+    aparelhoFactory() {
       const novoAparelho = {
         tipo: this.tipo.trim(),
         marca: this.marca.trim(),
         modelo: this.modelo.trim(),
         dono: this.dono.id ? this.dono.id : null,
         dte: Date.parse(this.dte),
-        dts: this.dts, //converter pra timestamp caso exista
+        dts: null,
         estado: this.estado,
         descricao: this.descricao ? this.descricao.trim() : null
-      }
-      const res = await this.$store.dispatch("saveAparelho", novoAparelho);
-      if (res.tipo === "sucesso") {
-        this.novoAparelhoToast(res.msg, "success");
-        this.cancelar()
-        const res2 = await this.$store.dispatch("loadAparelhos");
-        if (res2.tipo === "erro") {
-          return this.novoAparelhoToast(res2.msg, "danger");
-        }
-        // Adicionar id do aparelho criado à lista de aparelhos do cliente
-        if(novoAparelho.dono) {
-          const dono = this.clientes.filter(item => item.id === novoAparelho.dono)[0]
-          dono.aparelhos.push(res.id)
-          await this.$store.dispatch("saveCliente", dono)
-          this.$store.dispatch("loadClientes")
-        }
-      } else {
-        this.novoAparelhoToast(res.msg, "danger");
-      }
+      };
+      return novoAparelho;
     },
-    cancelar() {
-      this.tipo = null
-      this.marca = null
-      this.modelo = null
-      this.dono = null
-      this.dte = null
-      this.dts = null
-      this.descricao = null
-      this.ctrlAparelho.novo = false
+    novoAparelhoToast(msg, variant) {
+      this.$bvToast.toast(msg || "Sem mensagem", {
+        title: "Aparelhos",
+        variant: variant,
+        solid: true
+      });
     },
+    validarCampos() {
+      if (!this.tipo) {
+        this.novoAparelhoToast("Tipo não informado", "danger");
+        return false;
+      }
+      if (!this.modelo) {
+        this.novoAparelhoToast("Modelo não informado", "danger");
+        return false;
+      }
+      if (!this.marca) {
+        this.novoAparelhoToast("Marca não informada", "danger");
+        return false;
+      }
+      if (!this.dono) {
+        this.novoAparelhoToast("Dono não informada", "danger");
+        return false;
+      }
+      if (!this.dte) {
+        this.novoAparelhoToast("Data não informada", "danger");
+        return false;
+      }
+      return true
+    }
   }
 };
 </script>
