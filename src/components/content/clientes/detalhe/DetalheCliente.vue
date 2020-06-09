@@ -5,10 +5,10 @@
     </div>
     <div class="content-detalhe-cliente">
       <Campos />
-      <!-- <b-icon icon='x-circle-fill' class="fechar" @click="ctrlCliente.tab='todos'"></b-icon> -->
       <div class="opcoes-detalhe-cliente" v-show="!ctrlGlobal.processing">
         <a href='#' class='ml-5' @click="confirmExclusao">Excluir</a>
-        <b-button variant='warning' class='mr-5 px-3 py-1'>Editar</b-button>
+        <b-button variant='warning' class='mr-5 px-3' size="sm"
+          @click="ctrlCliente.editar=true">Editar</b-button>
       </div>
       <div class="opcoes-detalhe-cliente" v-show="ctrlGlobal.processing">
         <b-spinner class='mx-5' type="grow" variant="info"></b-spinner>
@@ -104,22 +104,19 @@ export default {
   text-align: left;
   padding: 10px 10px 10px 20px;
 }
-/* .content-detalhe-cliente .fechar:hover {
-  color: #000a;
-  width: 30px;
-  height: 30px;
-  transition: .1s ease;
+.opcoes-detalhe-cliente > a:hover {
+  text-decoration: none;
+  background: orangered;
+  color: #fff;
 }
-.content-detalhe-cliente .fechar {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  width: 26px;
-  height: 26px;
-  cursor: pointer;
+.opcoes-detalhe-cliente > a{
+  margin-left: 20px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 9px 15px;
+  border-radius: 4px;
   user-select: none;
-  color: #0006;
-} */
+}
 .opcoes-detalhe-cliente {
   display: flex;
   justify-content: space-between;

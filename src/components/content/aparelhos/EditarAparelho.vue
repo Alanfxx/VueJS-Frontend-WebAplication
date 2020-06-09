@@ -60,7 +60,7 @@
           variant="warning"
           class="ml-4 mr-3 px-3"
           @click="salvarEdicao"
-        >Salvar mudanças</b-button>
+        >Salvar alterações</b-button>
       </div>
       <div class="bts-editar-aparelho" v-show="ctrlGlobal.processing">
         <b-spinner class="mr-5" type="grow" variant="info"></b-spinner>
@@ -138,7 +138,6 @@ export default {
     },
     cancelar() {
       this.ctrlAparelho.editar = false;
-      this.iniciarVariaveis();
     },
     iniciarVariaveis() {
       this.id = this.ctrlAparelho.itemAtual.id;

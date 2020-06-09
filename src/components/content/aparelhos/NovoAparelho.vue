@@ -115,13 +115,13 @@ export default {
         novoAparelho.id = res.id; //Novo Id
         this.novoAparelhoToast(res.msg, "success");
         await this.$store.dispatch("loadAparelhos");
-        this.reset();
         // Adicionar id do aparelho criado à lista de aparelhos do cliente dono
         if (novoAparelho.dono) {
-          const resp = await this.$store.dispatch("addAparelhoToList", {apId: novoAparelho, dono: this.dono});
+          const resp = await this.$store.dispatch("addAparelhoToList", {apId: novoAparelho.id, dono: this.dono});
           if(resp.tipo === 'erro') this.novoAparelhoToast(resp.msg, "danger")
           this.$store.dispatch("loadClientes");
         }
+        this.reset();
       } else {
         this.novoAparelhoToast(res.msg, "danger");
       }

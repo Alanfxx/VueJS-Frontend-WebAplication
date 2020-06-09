@@ -9,7 +9,8 @@ export default {
       tab: 'todos',
       itemAtual: {},
       novo: false,
-      busca: null
+      busca: null,
+      editar: false
     }
   },
   mutations: {

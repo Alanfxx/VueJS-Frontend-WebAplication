@@ -7,7 +7,7 @@
       <Campos />
       <div class="opcoes-detalhe-aparelho" v-show="!ctrlGlobal.processing">
         <a href='#' id="excluir-aparelho" class='ml-5' @click="confirmExclusao">Excluir</a>
-        <b-button variant='warning' class='mr-5 px-3 py-1' 
+        <b-button variant='warning' class='mr-5 px-3' size='sm'
           @click="ctrlAparelho.editar=true">Editar</b-button>
       </div>
       <div class="opcoes-detalhe-aparelho" v-show="ctrlGlobal.processing">
@@ -110,14 +110,14 @@ export default {
 }
 #excluir-aparelho:hover {
   text-decoration: none;
-  background: coral;
+  background: orangered;
   color: #fff;
 }
 #excluir-aparelho {
   margin-left: 20px;
   font-size: 0.9rem;
   font-weight: 400;
-  padding: 8px 10px;
+  padding: 9px 15px;
   border-radius: 4px;
   user-select: none;
 }

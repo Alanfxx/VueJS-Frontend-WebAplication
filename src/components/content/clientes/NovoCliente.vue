@@ -54,15 +54,10 @@ export default {
       tels: null,
     }
   },
-  computed: {
-    clientes() {
-      return this.$store.getters.clientesList
-    }
-  },
   methods: {
     novoClienteToast(msg, variant) {
       this.$bvToast.toast(msg || "Sem mensagem", {
-        title: "Inventário",
+        title: "Clientes",
         variant: variant,
         solid: true
       });

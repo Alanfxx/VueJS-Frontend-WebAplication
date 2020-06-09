@@ -17,6 +17,8 @@
       </div>
       <!-- Detalhes -->
       <DetalheCliente v-show="ctrlCliente.tab === 'detalhe'" />
+      <!-- Editar -->
+      <EditarCliente v-show="ctrlCliente.editar"/>
     </div>
   </div>
 </template>
@@ -27,10 +29,11 @@ import AsideContent from './AsideContentClientes'
 import Cliente from './Cliente.vue'
 import NovoCliente from './NovoCliente'
 import DetalheCliente from './detalhe/DetalheCliente.vue'
+import EditarCliente from './EditarCliente'
 
 export default {
   name: "clientes-pages",
-  components: { Aside, AsideContent, Cliente, NovoCliente, DetalheCliente },
+  components: { Aside, AsideContent, Cliente, NovoCliente, DetalheCliente, EditarCliente },
   data: function() {
     return {
       ctrlCliente: this.$store.state.clientes.ctrlCliente,
